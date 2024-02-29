@@ -11,7 +11,7 @@ const { post } = Astro.props;
 
 <div class="group">
   <a
-    class="cursor-pointer block w-fit"
+    class="group cursor-pointer block w-fit"
     href={"/blog/" + post.slug}
     title={post.data.description}
   >
@@ -20,8 +20,15 @@ const { post } = Astro.props;
     </span>
   </a>
   <p class="text-[#EEEEE2]/60">
-    <span class="uppercase">[{post.data.language}]</span>
-    {" - "}
+    {
+      post.data.language === "en" && (
+        <>
+          <span class="uppercase bg-[#EEEEE2] text-[#111111] pl-1 mr-1 text-xs">
+            english
+          </span>
+        </>
+      )
+    }
     {post.data.description}
   </p>
   <a
