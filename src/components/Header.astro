@@ -20,7 +20,7 @@ const newBasePages = basePages.map((page) => {
     newBasePages.map((page) => (
       <a
         class={cn(
-          "cursor-pointer hover:text-[#EEEEE2]/60 transition-all",
+          "cursor-pointer hover:text-[#EEEEE2]/60 transition-all lowercase",
           page.active && "text-[#EEEEE2]/60"
         )}
         href={page.href}

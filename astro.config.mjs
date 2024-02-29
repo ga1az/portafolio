@@ -13,9 +13,6 @@ export default defineConfig({
   integrations: [tailwind(), sitemap({ customPages: pages })],
   output: "server",
   adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-    maxDuration: 8,
+    webAnalytics: { enabled: true },
   }),
 });
