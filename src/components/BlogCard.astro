@@ -20,6 +20,8 @@ const { post } = Astro.props;
     </span>
   </a>
   <p class="text-[#EEEEE2]/60">
+    <span class="uppercase">[{post.data.language}]</span>
+    {" - "}
     {post.data.description}
   </p>
   <a
