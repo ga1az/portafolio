@@ -1,0 +1,32 @@
+---
+import { cn } from "../libs/utils";
+import { basePages } from "../sitemap";
+
+const currentPath = Astro.url.pathname;
+
+console.log(currentPath);
+
+const newBasePages = basePages.map((page) => {
+  return {
+    title: page === "/" ? "Home" : page.replace("/", "").replace(/-/g, " "),
+    href: page,
+    active: page === "/" ? currentPath === page : currentPath.includes(page),
+  };
+});
+---
+
+<header class="flex space-x-2 text-lg">
+  {
+    newBasePages.map((page) => (
+      <a
+        class={cn(
+          "cursor-pointer hover:text-[#EEEEE2]/60 transition-all",
+          page.active && "text-[#EEEEE2]/60"
+        )}
+        href={page.href}
+      >
+        {page.title}
+      </a>
+    ))
+  }
+</header>

@@ -1,0 +1,35 @@
+---
+// @ts-nocheck
+import type { CollectionEntry } from "astro:content";
+
+export type Props = {
+  post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+---
+
+<div class="group">
+  <a
+    class="cursor-pointer block w-fit"
+    href={"/blog/" + post.slug}
+    title={post.data.description}
+  >
+    <span class="text-2xl">
+      {post.data.title}
+    </span>
+  </a>
+  <p class="text-[#EEEEE2]/60">
+    {post.data.description}
+  </p>
+  <a
+    class="cursor-pointer block w-fit mb-4 hover:pl-2 group-hover:pl-2 transition-all"
+    href={"/blog/" + post.slug}
+    title={post.data.description}
+  >
+    <p>
+      <span>Leer</span>
+      <i class="ri-arrow-right-line"></i>
+    </p>
+  </a>
+</div>

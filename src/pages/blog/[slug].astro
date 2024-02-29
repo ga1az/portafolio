@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blog");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const ISODate = entry.data.date.toISOString();
+const formatDate = (date: any) => {
+  return new Intl.DateTimeFormat("es-ES", { dateStyle: "full" }).format(date);
+};
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  article={{ tags: entry.data.tags, date: ISODate }}
+  language={entry.data.language}
+>
+  <h1 class="text-4xl mt-20">
+    {entry.data.title}
+  </h1>
+  <div class="text-[#EEEEE2]/60 mb-10 text-sm mt-2 flex flex-col space-y-1">
+    <div class="flex items-center space-x-2">
+      <i class="ri-calendar-line"></i>
+      <time datetime={ISODate}>{formatDate(entry.data.date)}</time>
+    </div>
+    <div class="flex items-center space-x-2">
+      <i class="ri-price-tag-3-line"></i>
+      <span>
+        {entry.data.tags.join(" - ")}
+      </span>
+    </div>
+  </div>
+  <article class="prose prose-invert max-w-none text-[#EEEEE2] mb-10">
+    <Content />
+  </article>
+</BaseLayout>

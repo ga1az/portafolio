@@ -1,0 +1,44 @@
+---
+// @ts-nocheck
+import type { CollectionEntry } from "astro:content";
+
+export type Props = {
+  work: CollectionEntry<"work">;
+};
+
+const { work } = Astro.props;
+---
+
+<div class="">
+  <div class="block w-fit">
+    <span class="text-2xl">
+      {work.data.title}
+    </span>
+  </div>
+  <p class="text-[#EEEEE2]/60">
+    {work.data.description}
+  </p>
+  <p class="text-[#EEEEE2]/60">
+    {work.data.tags.join(" · ")}
+  </p>
+  {
+    work.data.href !== "" && (
+      <a
+        href={work.data.href}
+        class="text-[#EEEEE2]/60 hover:text-[#EEEEE2] transition-all"
+        target="_blank"
+      >
+        <i class="ri-link" />
+        <span>{work.data.href.replace("https://", "")}</span>
+      </a>
+    )
+  }
+  {
+    work.data.hasBlog && (
+      <a href={`/blog/${work.slug}`} class="text-[#EEEEE2]/60 ">
+        <i class="ri-link" />
+        <span>Leer el articulo del proyecto</span>
+      </a>
+    )
+  }
+</div>
