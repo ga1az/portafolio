@@ -11,7 +11,7 @@ import { SITE } from "./src/constants";
 export default defineConfig({
   site: SITE,
   integrations: [tailwind(), sitemap({ customPages: pages })],
-  output: "server",
+  output: "hybrid",
   adapter: vercel({
     webAnalytics: { enabled: true },
   }),
