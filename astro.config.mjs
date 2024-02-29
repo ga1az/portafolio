@@ -1,6 +1,8 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 
+import vercel from "@astrojs/vercel/serverless";
+
 import sitemap from "@astrojs/sitemap";
 import { pages } from "./src/sitemap";
 import { SITE } from "./src/constants";
@@ -9,4 +11,11 @@ import { SITE } from "./src/constants";
 export default defineConfig({
   site: SITE,
   integrations: [tailwind(), sitemap({ customPages: pages })],
+  output: "server",
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+    maxDuration: 8,
+  }),
 });
