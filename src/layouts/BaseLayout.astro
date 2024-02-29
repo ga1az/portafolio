@@ -1,6 +1,7 @@
 ---
 import { SEO } from "astro-seo";
 import "remixicon/fonts/remixicon.css";
+import faviconImg from "../../public/favicon.png";
 import {
   DESCRIPTION,
   HEADER_IMAGE,
@@ -32,7 +33,7 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.png" />
+    <link rel="icon" type="image/x-icon" href={faviconImg.src} />
     <meta name="generator" content={Astro.generator} />
     <title>{title ? `${title} - ${SITE_NAME}` : SITE_NAME}</title>
     <SEO
