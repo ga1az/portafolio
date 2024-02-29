@@ -17,7 +17,7 @@ const works = (await getCollection("work")).sort(
       Proyectos
     </h1>
     {
-      works.map((work, i) => (
+      works.map((work) => (
         <>
           <WorkCard work={work} />
         </>
