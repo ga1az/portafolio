@@ -37,7 +37,9 @@ const { post } = Astro.props;
     title={post.data.description}
   >
     <p>
-      <span>Leer</span>
+      <span>
+        {post.data.language === "en" ? "Read" : "Leer"}
+      </span>
       <i class="ri-arrow-right-line"></i>
     </p>
   </a>
