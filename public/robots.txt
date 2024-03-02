@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ga1az.com/sitemap-index.xml
