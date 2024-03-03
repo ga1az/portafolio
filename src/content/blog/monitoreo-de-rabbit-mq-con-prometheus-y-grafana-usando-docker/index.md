@@ -12,7 +12,7 @@ En esta guia mostraremos como configurar nuestro docker-compose para que se ejec
 
 Estructura del proyecto:
 
-```
+```bash frame="none"
 ├── compose.yaml
 ├── grafana
 │   └── dashboards
@@ -38,7 +38,7 @@ Lo primero que necesitamos es tener instalado [Docker](https://docs.docker.com/g
 
 Para configurar RabbitMQ, vamos a crear un Dockerfile que nos permita instalar el plugin de [Prometheus](https://www.rabbitmq.com/prometheus.html) y exponer el puerto 15692.
 
-```Dockerfile
+```bash frame="code" title="/rabbitmq/Dockerfile"
 FROM rabbitmq:3.12.0-management
 RUN apt-get update && apt-get install -y wget
 RUN rabbitmq-plugins enable rabbitmq_management
@@ -50,7 +50,7 @@ CMD ["rabbitmq-server"]
 
 Para configurar Prometheus, vamos a crear un archivo `prometheus.yml` que nos permita configurar el scrape de RabbitMQ.
 
-```yaml
+```yaml frame="code" title="/prometheus/prometheus.yml"
 global:
   scrape_interval: 5s
 
@@ -91,7 +91,7 @@ En este caso tenemos que configurar nuestros dashboards y datasources. Para ello
 
 Finalmente, vamos a crear nuestro nucléo de configuración en el archivo `compose.yaml`.
 
-```yaml
+```yaml frame="code" title="compose.yaml"
 version: "3"
 
 networks:

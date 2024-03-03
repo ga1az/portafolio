@@ -38,7 +38,7 @@ We will use this structure to order our files:
 
 In the `db.ts` file we are going to create our database connection, in my case I will occupy (Supabase)[https://supabase.io/], but you can occupy any database you want.
 
-```ts
+```ts title="lib/database/db.ts"
 import { Database } from "./types"; // we define our data types, later on we will see how to create them.
 import { Pool } from "pg";
 import { Kysely, PostgresDialect } from "kysely";
@@ -64,7 +64,7 @@ export const db = new Kysely<Database>({
 
 Now we will have to create an `.env` file in order to save our environment variables, in this case we will use the following variables:
 
-```env
+```bash title=".env"
 DB_DATABASE=nextjs_kysely
 DB_HOST=localhost
 DB_USER=postgres
@@ -78,7 +78,7 @@ we are also going to create a `types.ts` file to define our data types
 
 These data types will help us to have a better autocompletion when writing our queries.
 
-```ts
+```ts title="lib/database/types.ts"
 import { Generated } from "kysely";
 
 export interface Database {
@@ -97,7 +97,7 @@ export interface UserTable {
 
 Now we are going to create a `migrations.ts` file in order to create our tables in the database.
 
-```ts
+```ts title="lib/database/migrations.ts"
 import { FileMigrationProvider, Kysely, Migrator, sql } from "kysely";
 import path from "path";
 import { promises as fs } from "fs";
@@ -155,7 +155,7 @@ We could divide these 2 parts in 2 different files, but for this example I will 
 
 To execute our migrations, let's create a script in our `package.json`.
 
-```json
+```json title="package.json"
 {
   "scripts": {
     "migrate": "bun run lib/database/migrations.ts"
@@ -181,7 +181,7 @@ npm run migrate
 
 To test that everything is working correctly, I will create a new folder in the root of my project called `actions` and inside this folder I will create a `user.ts` file with the following content:
 
-```ts
+```ts title="actions/user.ts"
 "use server";
 import { db } from "@/lib/database/db";
 
@@ -200,7 +200,7 @@ in this file we are exporting a function called `getUsers` which is in charge of
 
 Now if we go to our `app/page.tsx` file and we are going to import our `getUsers` function and we are going to execute it.
 
-```ts
+```ts title="app/page.tsx"
 import { getUsers } from `/actions/user`;
 
 export default async function Home() {

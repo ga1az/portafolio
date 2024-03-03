@@ -38,7 +38,7 @@ Ocuparemos esta estructura para ordenar nuestros archivos:
 
 En el archivo `db.ts` vamos a crear nuestra conexión a la base de datos, en mi caso ocuparé (Supabase)[https://supabase.io/], pero puedes ocupar cualquier base de datos que quieras.
 
-```ts
+```ts title="lib/database/db.ts"
 import { Database } from "./types"; // definimos nuestros tipos de datos, más adelante veremos cómo crearlos
 import { Pool } from "pg";
 import { Kysely, PostgresDialect } from "kysely";
@@ -64,7 +64,7 @@ export const db = new Kysely<Database>({
 
 Ahora tendremos que crear un archivo `.env` para poder guardar nuestras variables de entorno, en este caso ocuparemos las siguientes variables:
 
-```env
+```bash title=".env"
 DB_DATABASE=nextjs_kysely
 DB_HOST=localhost
 DB_USER=postgres
@@ -78,7 +78,7 @@ también vamos a crear un archivo `types.ts` para definir nuestros tipos de dato
 
 Estos tipos de datos nos ayudarán a tener un mejor autocompletado al momento de escribir nuestras consultas.
 
-```ts
+```ts title="lib/database/types.ts"
 import { Generated } from "kysely";
 
 export interface Database {
@@ -97,7 +97,7 @@ export interface UserTable {
 
 Ahora vamos a crear un archivo `migrations.ts` para poder crear nuestras tablas en la base de datos.
 
-```ts
+```ts title="lib/database/migrations.ts"
 import { FileMigrationProvider, Kysely, Migrator, sql } from "kysely";
 import path from "path";
 import { promises as fs } from "fs";
@@ -155,7 +155,7 @@ Podríamos dividir estas 2 partes en 2 archivos diferentes, pero para este ejemp
 
 Para ejecutar nuestras migraciones, vamos a crear un script en nuestro `package.json`
 
-```json
+```json title="package.json"
 {
   "scripts": {
     "migrate": "bun run lib/database/migrations.ts"
@@ -181,7 +181,7 @@ npm run migrate
 
 para probar que todo esté funcionando correctamente, voy a crear una nueva carpeta en la raíz de mi proyecto llamada `actions` y dentro de esta carpeta voy a crear un archivo `user.ts` con el siguiente contenido:
 
-```ts
+```ts title="actions/user.ts"
 "use server";
 import { db } from "@/lib/database/db";
 
@@ -200,7 +200,7 @@ en este archivo estamos exportando una función llamada `getUsers` que se encarg
 
 Ahora si vamos a nuestro archivo `app/page.tsx` y vamos a importar nuestra función `getUsers` y la vamos a ejecutar.
 
-```ts
+```ts title="app/page.tsx"
 import { getUsers } from "@/actions/user";
 
 export default async function Home() {

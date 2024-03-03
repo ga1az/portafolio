@@ -12,7 +12,7 @@ In this guide we will show how to configure our docker-compose to run a monitori
 
 Project structure:
 
-```
+```bash frame="none"
 ├── compose.yaml
 ├── grafana
 │   └── dashboards
@@ -38,7 +38,7 @@ The first thing we need is to have [Docker](https://docs.docker.com/get-docker/)
 
 To configure RabbitMQ, we are going to create a Dockerfile that allows us to install the [Prometheus](https://www.rabbitmq.com/prometheus.html) plugin and expose port 15692.
 
-```Dockerfile
+```Dockerfile frame="code" title="/rabbitmq/Dockerfile"
 FROM rabbitmq:3.12.0-management
 RUN apt-get update && apt-get install -y wget
 RUN rabbitmq-plugins enable rabbitmq_management
@@ -50,7 +50,7 @@ CMD ["rabbitmq-server"]
 
 To configure Prometheus, we will create a `prometheus.yml` file that allows us to configure the RabbitMQ scrape.
 
-```yaml
+```yaml frame="code" title="/prometheus/prometheus.yml"
 global:
   scrape_interval: 5s
 
@@ -91,7 +91,7 @@ In this case we have to configure our dashboards and datasources. To do this, we
 
 Finally, we are going to create our configuration kernel in the `compose.yaml` file.
 
-```yaml
+```yaml frame="code" title="compose.yaml"
 version: "3"
 
 networks:
