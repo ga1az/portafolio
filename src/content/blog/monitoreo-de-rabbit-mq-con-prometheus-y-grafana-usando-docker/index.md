@@ -198,7 +198,7 @@ una vez entremos a la interfaz de RabbitMQ, y nos logueemos con las credenciales
 Para ello, vamos a la pestaña `Queues` y hacemos click en `Add a new queue`.
 como nombre de la cola vamos a poner `test_prometheus` y hacemos click en `Add queue`.
 
-Ahora hacemos click en la cola que acabamos de crear o nos vamos al siguiente link [http://localhost:15673/#/queues/%2F/test_prometheus](http://localhost:15673/#/queues/%2F/test_prometheus) y vamos a ver que la cola está vacía.
+Ahora hacemos click en la cola que acabamos de crear o nos vamos al siguiente link [/test_prometheus](http://localhost:15673/#/queues/%2F/test_prometheus) y vamos a ver que la cola está vacía.
 
 vamos a enviar un mensaje a la cola, para ello, hacemos click en `Publish message` y en el campo `Payload` ponemos el mensaje que queremos enviar, por ejemplo `Hello World!` y hacemos click en `Publish message`.
 

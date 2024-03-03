@@ -8,4 +8,4 @@ href: "https://ga1az.com"
 hasBlog: false
 ---
 
-# Portafolio Personal
+Portafolio personal desarrollado con Astro y TailwindCSS

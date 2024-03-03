@@ -198,7 +198,7 @@ Once we enter the RabbitMQ interface, and log in with the default credentials wh
 To do this, go to the `Queues` tab and click on `Add a new queue`.
 As queue name we are going to put `test_prometheus` and click on `Add queue`.
 
-Now we click on the queue that we have just created or we go to the following link [http://localhost:15673/#/queues/%2F/test_prometheus](http://localhost:15673/#/queues/%2F/test_prometheus) and we will see that the queue is empty.
+Now we click on the queue that we have just created or we go to the following link [/test_prometheus](http://localhost:15673/#/queues/%2F/test_prometheus) and we will see that the queue is empty.
 
 We are going to send a message to the queue, for it, we click on `Publish message` and in the `Payload` field we put the message that we want to send, for example `Hello World!` and we click on `Publish message`.
 
