@@ -6,7 +6,7 @@ import BlogCard from "../../components/BlogCard.astro";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .filter((post) => post.data.language === "es");
+  .filter((post) => post.data.language === "en");
 ---
 
 <BaseLayout center={false}>
@@ -16,10 +16,10 @@ const posts = (await getCollection("blog"))
         <>
           {post.data.date.getFullYear() !==
             (posts[i - 1]?.data.date.getFullYear() || 0) && (
-            <div class="mb-10 text-lg border hover:bg-[#111111] flex justify-between pr-8 hover:text-[#EEEEE2] tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 cursor-pointer italic rounded-tl-lg rounded-br-lg">
+            <div class="mb-10 text-lg border flex justify-between pr-8 hover:bg-[#111111] hover:text-[#EEEEE2] tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 cursor-pointer italic rounded-tl-lg rounded-br-lg">
               <h2>{post.data.date.getFullYear()}</h2>
-              <a href="/blog/en">
-                english reads
+              <a href="/blog/es">
+                spanish reads
                 <i class="ri-arrow-right-line" />
               </a>
             </div>
