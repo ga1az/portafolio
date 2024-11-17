@@ -16,7 +16,7 @@ const posts = (await getCollection("blog"))
         <>
           {post.data.date.getFullYear() !==
             (posts[i - 1]?.data.date.getFullYear() || 0) && (
-            <div class="mb-10 text-lg border flex justify-between pr-8 hover:bg-[#111111] hover:text-[#EEEEE2] tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 cursor-pointer italic rounded-tl-lg rounded-br-lg">
+            <div class="mb-10 text-lg border flex justify-between pr-8 hover:bg-[#111111] hover:text-[#EEEEE2] tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 cursor-pointer transition-colors duration-300 italic rounded-tl-lg rounded-br-lg">
               <h2>{post.data.date.getFullYear()}</h2>
               <a href="/blog/es">
                 spanish reads
