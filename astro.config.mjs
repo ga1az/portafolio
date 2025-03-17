@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
 import { pages } from "./src/sitemap";
@@ -7,11 +6,13 @@ import { SITE } from "./src/constants";
 
 import expressiveCode from "astro-expressive-code";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
 	site: SITE,
+
 	integrations: [
-		tailwind(),
 		sitemap({
 			customPages: pages,
 		}),
@@ -19,10 +20,13 @@ export default defineConfig({
 			themes: ["dark-plus"],
 		}),
 	],
-	output: "static",
 	adapter: vercel({
 		webAnalytics: {
 			enabled: true,
 		},
 	}),
+
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });
