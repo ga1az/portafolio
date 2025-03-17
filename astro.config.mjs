@@ -9,20 +9,20 @@ import expressiveCode from "astro-expressive-code";
 
 // https://astro.build/config
 export default defineConfig({
-  site: SITE,
-  integrations: [
-    tailwind(),
-    sitemap({
-      customPages: pages,
-    }),
-    expressiveCode({
-      themes: ["dark-plus"],
-    }),
-  ],
-  output: "hybrid",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-  }),
+	site: SITE,
+	integrations: [
+		tailwind(),
+		sitemap({
+			customPages: pages,
+		}),
+		expressiveCode({
+			themes: ["dark-plus"],
+		}),
+	],
+	output: "static",
+	adapter: vercel({
+		webAnalytics: {
+			enabled: true,
+		},
+	}),
 });
