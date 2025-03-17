@@ -20,6 +20,9 @@ export default defineConfig({
 			themes: ["dark-plus"],
 		}),
 	],
+
+	output: "static",
+
 	adapter: vercel({
 		webAnalytics: {
 			enabled: true,

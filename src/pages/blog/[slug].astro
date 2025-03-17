@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 const ISODate = entry.data.date.toISOString();
-const formatDate = (date: any, lang: string) => {
+const formatDate = (date: Date, lang: string) => {
   return new Intl.DateTimeFormat(`${lang}-US`, { dateStyle: "full" }).format(
     date
   );
@@ -62,5 +62,4 @@ const formatDate = (date: any, lang: string) => {
   data-theme="preferred_color_scheme"
   data-lang="es"
   crossorigin="anonymous"
-  async
-></script>
+  async></script>
