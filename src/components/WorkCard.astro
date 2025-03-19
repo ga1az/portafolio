@@ -11,9 +11,18 @@ const { work } = Astro.props;
 
 <div class="">
   <div class="block w-fit">
-    <span class="text-2xl">
-      {work.data.title}
-    </span>
+    <div>
+      {
+        work.data.hasBlog ? (
+          <a href={`/works/${work.slug}`} class="flex items-center gap-2 group">
+            <span class="text-2xl">{work.data.title}</span>
+            <i class="ri-arrow-right-line font-bold group-hover:translate-x-1 transition-transform duration-300" />
+          </a>
+        ) : (
+          <span class="text-2xl">{work.data.title}</span>
+        )
+      }
+    </div>
   </div>
   <p class="text-[#EEEEE2]/60">
     {work.data.description}
@@ -30,14 +39,6 @@ const { work } = Astro.props;
       >
         <i class="ri-link" />
         <span>{work.data.href.replace("https://", "")}</span>
-      </a>
-    )
-  }
-  {
-    work.data.hasBlog && (
-      <a href={`/blog/${work.slug}`} class="text-[#EEEEE2]/60 ">
-        <i class="ri-link" />
-        <span>Leer el articulo del proyecto</span>
       </a>
     )
   }
