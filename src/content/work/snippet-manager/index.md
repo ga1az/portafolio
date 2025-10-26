@@ -11,11 +11,13 @@ tags: ["Next.js",
     "Zod"]
 language: "en"
 description: "A modern, AI-powered code snippet management application that enables you to create, organize, and share your code snippets."
-href: ""
+href: "https://editor.ga1az.com/es/login"
 hasBlog: true
 ---
 
 Snippet Manager is the best alternative to GitHub Gist. Keep all your code snippets neatly organized, group them into folders, share snippets with your friends, explore public snippets, and have them reviewed by AI.
+
+>  [Live Demo without AI.](https://editor.ga1az.com/es/login)
 
 ## Tech Stack
 
