@@ -4,7 +4,7 @@ date: "2025-03-17 09:38:14"
 tags: ["code", "typescript", "react", "library","motion", "animation", "Sprite Animation"]
 language: "en"
 description: "A library for React that allows you to create Sprites animations."
-href: "https://npmjs.com/package/@ga1az/react-pixel-motion"
+href: "https://react-pixel-motion.ga1az.com"
 hasBlog: true
 ---
 
