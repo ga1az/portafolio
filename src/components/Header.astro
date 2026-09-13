@@ -1,32 +1,48 @@
 ---
 import { cn } from "../libs/utils";
-import { basePages } from "../sitemap";
+import { NAV } from "../constants";
+import type { Lang } from "../i18n/ui";
+import { ui } from "../i18n/ui";
+import { isActivePath, localizePath, useTranslations } from "../i18n/utils";
 
+export type Props = {
+  lang: Lang;
+  /** Where the language switch goes: same content when it exists. */
+  switchTarget: { lang: Lang; href: string };
+};
+
+const { lang, switchTarget } = Astro.props;
+const t = useTranslations(lang);
 const currentPath = Astro.url.pathname;
-
-console.log(currentPath);
-
-const newBasePages = basePages.map((page) => {
-  return {
-    title: page === "/" ? "Home" : page.replace("/", "").replace(/-/g, " "),
-    href: page,
-    active: page === "/" ? currentPath === page : currentPath.includes(page),
-  };
-});
 ---
 
 <header class="flex space-x-2 text-lg">
   {
-    newBasePages.map((page) => (
-      <a
-        class={cn(
-          "cursor-pointer hover:text-[#EEEEE2]/60 transition-all lowercase",
-          page.active && "text-[#EEEEE2]/60"
-        )}
-        href={page.href}
-      >
-        {page.title}
-      </a>
-    ))
+    NAV.map((item) => {
+      const href = localizePath(lang, item.href);
+      return (
+        <a
+          class={cn(
+            "cursor-pointer hover:text-[#EEEEE2]/60 transition-all lowercase",
+            isActivePath(currentPath, href) && "text-[#EEEEE2]/60"
+          )}
+          href={href}
+        >
+          {t(item.key)}
+        </a>
+      );
+    })
   }
+
+  {/* The other edition of this page. Sits apart from the sections on purpose. */}
+  <a
+    class="ml-auto cursor-pointer text-[#EEEEE2]/60 hover:text-[#EEEEE2] transition-all lowercase"
+    href={switchTarget.href}
+    hreflang={switchTarget.lang}
+    lang={switchTarget.lang}
+    title={ui[switchTarget.lang]["lang.readIn"]}
+    data-set-lang={switchTarget.lang}
+  >
+    {ui[switchTarget.lang]["lang.name"]}
+  </a>
 </header>

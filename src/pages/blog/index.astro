@@ -1,32 +1,13 @@
 ---
-// @ts-nocheck
-import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogCard from "../../components/BlogCard.astro";
-
-const posts = (await getCollection("blog"))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .filter((post) => post.data.language === "en");
+import BlogArchive from "../../components/BlogArchive.astro";
 ---
 
-<BaseLayout center={false}>
-  <div class="mt-10 sm:mt-20 space-y-10">
-    {
-      posts.map((post, i) => (
-        <>
-          {post.data.date.getFullYear() !==
-            (posts[i - 1]?.data.date.getFullYear() || 0) && (
-            <div class="mb-10 text-lg border flex justify-between pr-8 hover:bg-[#111111] hover:text-[#EEEEE2] tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 cursor-pointer transition-colors duration-300 italic rounded-tl-lg rounded-br-lg">
-              <h2>{post.data.date.getFullYear()}</h2>
-              <a href="/blog/es">
-                spanish reads
-                <i class="ri-arrow-right-line" />
-              </a>
-            </div>
-          )}
-          <BlogCard post={post} />
-        </>
-      ))
-    }
-  </div>
+<BaseLayout
+  title="Blog"
+  lang="en"
+  alternate={{ lang: "es", href: "/es/blog" }}
+  autoLocale
+>
+  <BlogArchive lang="en" />
 </BaseLayout>

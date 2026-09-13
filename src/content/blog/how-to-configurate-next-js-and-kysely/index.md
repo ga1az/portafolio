@@ -3,6 +3,7 @@ title: "How to configurate Next.js and Kysely"
 date: "2024-02-28 09:38:14"
 tags: ["code", "nextjs", "kysely", "typescript", "sql", "database"]
 language: "en"
+icon: "nextjs"
 description: "Configurate Next.js and Kysely easily for your project"
 ---
 

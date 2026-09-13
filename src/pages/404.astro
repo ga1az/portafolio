@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { useTranslations } from "../i18n/utils";
+
+// One static 404 serves every unmatched URL, /es/ included, so it stays in
+// the default language. The header still offers the switch to /es/.
+const t = useTranslations("en");
+---
+
+<BaseLayout title={t("notFound.title")} lang="en" center>
+  <div class="text-xl sm:text-2xl space-y-2">
+    <div class="font-bold text-3xl mb-10">
+      <p>404</p>
+      <span>{t("notFound.title")}</span>
+    </div>
+    <p class="text-[#EEEEE2]/70 tracking-wide">{t("notFound.body")}</p>
+    <a
+      href="/"
+      class="inline-block text-[#EEEEE2] hover:text-green-400 underline decoration-green-400 transition duration-300 ease-in-out"
+    >
+      {t("notFound.home")}
+    </a>
+  </div>
+</BaseLayout>

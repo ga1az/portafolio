@@ -3,6 +3,7 @@ title: "Como abrir puertos en instancias de Oracle Cloud"
 date: "2025-06-24 09:38:14"
 tags: ["code", "oracle", "cloud", "networking", "security"]
 language: "es"
+icon: "oracle"
 description: "Como abrir puertos en instancias de Oracle Cloud"
 ---
 

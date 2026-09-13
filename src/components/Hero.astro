@@ -1,0 +1,314 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import strikerOg from "../assets/striker-og.png";
+import { BUILDING } from "../constants";
+import type { Lang, UIKey } from "../i18n/ui";
+import { localizePath, useTranslations } from "../i18n/utils";
+import Tile from "./Tile.astro";
+
+/** The home intro. One markup, two languages. */
+export type Props = { lang: Lang };
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const count = (key: UIKey, n: number) => t(key).replace("{n}", String(n));
+
+const newestFirst = <T extends { data: { date: Date } }>(a: T, b: T) =>
+  b.data.date.getTime() - a.data.date.getTime();
+
+const works = (await getCollection("work")).sort(newestFirst);
+
+const posts = (
+  await getCollection("blog", (post) => post.data.language === lang)
+).sort(newestFirst);
+const latest = posts.slice(0, 3);
+
+/*
+  Three links carry a hover card: the Striker chip in the status line (opens
+  below, there is no room above), and "blog" / "portfolio" in the intro
+  (open above). A card is a sibling of its link, not a child, so the links
+  inside it stay valid HTML. Show/hide lives in global.css
+  (.hover-trigger / .hover-card) and the script at the bottom animates it
+  when it can.
+
+  No positioning script: "blog" lands early in the sentence in both languages
+  and "portfolio" late, so the first card grows to the right and the second
+  to the left, and both stay inside the column.
+*/
+const cardSurface =
+  "flex flex-col gap-2.5 rounded-xl border border-[#2E2E2E] bg-[#1A1A1A] p-3 " +
+  "text-left text-sm font-normal tracking-normal text-[#EEEEE2] shadow-[0_16px_40px_rgba(0,0,0,0.55)]";
+
+const cardPointer =
+  "absolute bottom-[7px] size-3 rotate-45 border-b border-r border-[#2E2E2E] bg-[#1A1A1A]";
+---
+
+<div class="text-xl sm:text-2xl space-y-2">
+  <div class="font-bold text-3xl mb-10">
+    <p>{t("home.hello")}</p>
+    <span>{t("home.name")}</span>
+
+    {/* Status line: where I am, what time it is there, what I am building. */}
+    <p
+      class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-normal tracking-wide text-[#EEEEE2]/50"
+    >
+      <span class="inline-flex items-center gap-1">
+        <i class="ri-map-pin-line" aria-hidden="true"></i>
+        {t("home.status.location")}
+      </span>
+      <span aria-hidden="true">·</span>
+      <span class="inline-flex items-center gap-1">
+        <i class="ri-time-line" aria-hidden="true"></i>
+        {/* Filled by the script in the site's own time zone; the label is the no-JS fallback. */}
+        <time data-clock data-tz="America/Santiago">GMT-3</time>
+      </span>
+      <span aria-hidden="true">·</span>
+      <span class="hover-trigger relative inline-block" data-hover>
+        <a
+          href={BUILDING.href[lang]}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 text-[#EEEEE2]/80 hover:text-[#EEEEE2] transition-colors"
+        >
+          <span class="relative flex size-2" aria-hidden="true">
+            <span class="absolute inline-flex size-full rounded-full bg-green-400 opacity-60 motion-safe:animate-ping"></span>
+            <span class="relative inline-flex size-2 rounded-full bg-green-400"></span>
+          </span>
+          {t("home.status.building")}
+          <Tile icon={BUILDING.icon} label={BUILDING.name} size="2xs" />
+          {BUILDING.name}
+        </a>
+        <span
+          class="hover-card hover-card--below left-0 w-[340px] max-w-[calc(100vw-2rem)] origin-top-left"
+          role="tooltip"
+          data-card
+        >
+          <span class:list={[cardSurface, "gap-2 p-2"]}>
+            <Image
+              src={strikerOg}
+              alt=""
+              width={648}
+              height={340}
+              class="w-full rounded-lg border border-[#2E2E2E]"
+              loading="lazy"
+              decoding="async"
+              data-row
+            />
+            <span class="flex flex-col gap-0.5 px-1 pb-1" data-row>
+              <span class="text-[#EEEEE2]">{t("home.preview.building")}</span>
+              <span class="text-[13px] text-[#EEEEE2]/50">
+                {BUILDING.href[lang].replace("https://", "")}
+                <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+              </span>
+            </span>
+          </span>
+          <span
+            class="absolute left-6 top-[7px] size-3 rotate-45 border-l border-t border-[#2E2E2E] bg-[#1A1A1A]"
+            aria-hidden="true"></span>
+        </span>
+      </span>
+    </p>
+  </div>
+  <h1 class="text-[#EEEEE2]/70 tracking-wide">{t("home.bio")}</h1>
+  <h1 class="text-[#EEEEE2]/70 tracking-wide">
+    {t("home.freeTime.before")}<span class="hover-trigger relative inline-block" data-hover>
+      <a
+        href={localizePath(lang, "/blog")}
+        class="text-[#EEEEE2] hover:text-green-400 underline decoration-green-400 transition duration-300 ease-in-out"
+        >{t("home.freeTime.blog")}</a
+      >
+      <span
+        class="hover-card left-0 w-[380px] max-w-[calc(100vw-2rem)] origin-bottom-left"
+        role="tooltip"
+        data-card
+      >
+        <span class={cardSurface}>
+          <span class="flex items-center justify-between text-[13px]" data-row>
+            <span class="font-medium text-green-400">{t("home.preview.posts")}</span>
+            <span class="text-[#EEEEE2]/50">{count("home.preview.postsCount", posts.length)}</span>
+          </span>
+          {
+            latest.map((post) => (
+              <a
+                href={`/blog/${post.id}`}
+                class="flex items-center gap-2.5 hover:text-green-400 transition-colors"
+                data-row
+              >
+                <Tile icon={post.data.icon} label={post.data.title} size="xs" data-tile />
+                <span class="truncate">{post.data.title}</span>
+              </a>
+            ))
+          }
+          <a
+            href={localizePath(lang, "/blog")}
+            class="w-fit text-[13px] text-[#EEEEE2]/50 hover:text-[#EEEEE2] transition-colors"
+            data-row
+          >
+            {t("home.preview.readAll")}
+            <i class="ri-arrow-right-line" aria-hidden="true"></i>
+          </a>
+        </span>
+        <span class:list={[cardPointer, "left-6"]} aria-hidden="true"></span>
+      </span>
+    </span>{t("home.freeTime.between")}<span class="hover-trigger relative inline-block" data-hover>
+      <a
+        href={localizePath(lang, "/works")}
+        class="text-[#EEEEE2] hover:text-blue-400 underline decoration-blue-400 transition duration-300 ease-in-out"
+        >{t("home.freeTime.works")}</a
+      >
+      <span
+        class="hover-card right-0 w-[380px] max-w-[calc(100vw-2rem)] origin-bottom-right"
+        role="tooltip"
+        data-card
+      >
+        <span class={cardSurface}>
+          <span class="flex items-center justify-between text-[13px]" data-row>
+            <span class="font-medium text-blue-400">{t("home.preview.works")}</span>
+            <span class="text-[#EEEEE2]/50">{count("home.preview.worksCount", works.length)}</span>
+          </span>
+          <span class="grid grid-cols-2 gap-x-3 gap-y-2">
+            {
+              works.map((work) => (
+                <a
+                  href={work.data.hasBlog ? `/works/${work.id}` : work.data.href}
+                  target={work.data.hasBlog ? undefined : "_blank"}
+                  rel={work.data.hasBlog ? undefined : "noopener noreferrer"}
+                  class="flex min-w-0 items-center gap-2 hover:text-blue-400 transition-colors"
+                  data-row
+                >
+                  <Tile icon={work.data.icon} label={work.data.title} size="xs" data-tile />
+                  <span class="truncate">{work.data.shortTitle ?? work.data.title}</span>
+                </a>
+              ))
+            }
+          </span>
+        </span>
+        <span class:list={[cardPointer, "right-6"]} aria-hidden="true"></span>
+      </span>
+    </span>{t("home.freeTime.after")}
+  </h1>
+</div>
+
+<script>
+  import { animate, createAnimatable, stagger, utils } from "animejs";
+
+  /*
+    Progressive enhancement over the CSS in global.css. With a real pointer
+    and no reduced-motion preference this takes over: the card springs up
+    from the word, its rows and tiles follow with a short stagger, and the
+    card drifts a few pixels with the cursor while it is open.
+  */
+  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const CAN_HOVER = window.matchMedia("(hover: hover)");
+
+  // Where a closed card rests, so the entrance always starts from the same
+  // place: a few pixels toward the word it belongs to.
+  const closedState = (card: HTMLElement) => ({
+    opacity: 0,
+    y: card.classList.contains("hover-card--below") ? -12 : 12,
+    scale: 0.96,
+  });
+
+  function bind(trigger: HTMLElement) {
+    if (trigger.dataset.bound) return;
+    const card = trigger.querySelector<HTMLElement>("[data-card]");
+    const link = trigger.querySelector<HTMLAnchorElement>("a");
+    if (!card || !link) return;
+    trigger.dataset.bound = "";
+
+    const rows = Array.from(card.querySelectorAll<HTMLElement>("[data-row]"));
+    const tiles = Array.from(card.querySelectorAll<HTMLElement>("[data-tile]"));
+    const drift = createAnimatable(card, { x: 500, ease: "out(3)" });
+
+    const CLOSED = closedState(card);
+    utils.set(card, CLOSED);
+    let open = false;
+
+    const show = () => {
+      if (open) return;
+      open = true;
+      card.style.visibility = "visible";
+      animate(card, { opacity: 1, y: 0, scale: 1, duration: 380, ease: "outExpo" });
+      if (rows.length) {
+        animate(rows, {
+          opacity: [0, 1],
+          x: [-8, 0],
+          duration: 320,
+          delay: stagger(40, { start: 60 }),
+          ease: "outQuad",
+        });
+      }
+      if (tiles.length) {
+        animate(tiles, {
+          scale: [0.6, 1],
+          duration: 450,
+          delay: stagger(40, { start: 80 }),
+          ease: "outBack(1.8)",
+        });
+      }
+    };
+
+    const hide = () => {
+      if (!open) return;
+      open = false;
+      drift.x(0);
+      animate(card, {
+        opacity: 0,
+        y: CLOSED.y / 2,
+        scale: 0.98,
+        duration: 160,
+        ease: "outQuad",
+        onComplete: () => {
+          if (open) return;
+          card.style.visibility = "hidden";
+          utils.set(card, CLOSED);
+        },
+      });
+    };
+
+    trigger.addEventListener("pointerenter", (event) => {
+      if (event.pointerType === "mouse") show();
+    });
+    trigger.addEventListener("pointerleave", hide);
+    trigger.addEventListener("pointermove", (event) => {
+      if (!open || event.pointerType !== "mouse") return;
+      const box = link.getBoundingClientRect();
+      const offset = (event.clientX - (box.left + box.width / 2)) / box.width;
+      drift.x(Math.max(-14, Math.min(14, offset * 16)));
+    });
+
+    // Keyboard: the card opens while anything inside the trigger has focus.
+    trigger.addEventListener("focusin", show);
+    trigger.addEventListener("focusout", (event) => {
+      if (!trigger.contains(event.relatedTarget as Node | null)) hide();
+    });
+  }
+
+  // Local time in the site's own time zone, refreshed on the minute.
+  function startClock(el: HTMLElement) {
+    if (el.dataset.running) return;
+    el.dataset.running = "";
+    const format = new Intl.DateTimeFormat("en-GB", {
+      timeZone: el.dataset.tz,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const tick = () => {
+      if (!el.isConnected) return;
+      el.textContent = format.format(new Date());
+      setTimeout(tick, 60_000 - (Date.now() % 60_000) + 50);
+    };
+    tick();
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>("[data-clock]").forEach(startClock);
+    if (REDUCED.matches || !CAN_HOVER.matches) return;
+    document.documentElement.dataset.hoverAnim = "on";
+    document.querySelectorAll<HTMLElement>("[data-hover]").forEach(bind);
+  }
+
+  // ClientRouter swaps the document without a reload: bind per page.
+  document.addEventListener("astro:page-load", init);
+</script>

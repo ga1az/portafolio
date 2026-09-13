@@ -1,32 +1,22 @@
 ---
-// @ts-nocheck
-import { getCollection } from "astro:content";
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import BlogCard from "../../../components/BlogCard.astro";
-
-const posts = (await getCollection("blog"))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .filter((post) => post.data.language === "es");
+/**
+ * The Spanish archive moved to /es/blog. This is a client redirect rather
+ * than an entry in `redirects` because the Vercel adapter matches the exact
+ * path only: "/blog/es" would 301 while "/blog/es/" — the form the old
+ * sitemap advertised — would 404. A static page answers both.
+ */
+const destination = "/es/blog";
 ---
 
-<BaseLayout center={false}>
-  <div class="mt-10 sm:mt-20 space-y-10">
-    {
-      posts.map((post, i) => (
-        <>
-          {post.data.date.getFullYear() !==
-            (posts[i - 1]?.data.date.getFullYear() || 0) && (
-            <div class="mb-10 text-lg border hover:bg-[#111111] flex justify-between pr-8 hover:text-[#EEEEE2] tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 cursor-pointer italic rounded-tl-lg rounded-br-lg">
-              <h2>{post.data.date.getFullYear()}</h2>
-              <a href="/blog">
-                english reads
-                <i class="ri-arrow-right-line" />
-              </a>
-            </div>
-          )}
-          <BlogCard post={post} />
-        </>
-      ))
-    }
-  </div>
-</BaseLayout>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0; url=${destination}`} />
+    <link rel="canonical" href={new URL(`${destination}/`, Astro.site)} />
+    <title>Blog - Sergio Galaz</title>
+  </head>
+  <body>
+    <a href={destination}>Blog</a>
+  </body>
+</html>

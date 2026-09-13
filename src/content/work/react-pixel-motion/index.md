@@ -3,6 +3,7 @@ title: "React Pixel Motion"
 date: "2025-03-17 09:38:14"
 tags: ["code", "typescript", "react", "library","motion", "animation", "Sprite Animation"]
 language: "en"
+icon: "react"
 description: "A library for React that allows you to create Sprites animations."
 href: "https://react-pixel-motion.ga1az.com"
 hasBlog: true

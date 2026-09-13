@@ -3,6 +3,7 @@ title: "Grafana turn your dashboards into images"
 date: "2024-08-18 09:38:14"
 tags: ["grafana", "render", "dashboard", "grafana-render", "image"]
 language: "en"
+icon: "grafana"
 description: "Turn your Grafana dashboards into images and share them anywhere."
 ---
 

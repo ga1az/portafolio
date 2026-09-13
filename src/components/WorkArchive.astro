@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import WorkCard from "./WorkCard.astro";
+import type { Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+
+/**
+ * The work archive. Only the frame is translated: project descriptions and
+ * write-ups are English-only content, so the Spanish page lists the same
+ * entries and links to the same /works/ pages.
+ */
+export type Props = { lang: Lang };
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const works = (await getCollection("work")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<div class="mt-10 sm:mt-20 space-y-10">
+  <h1
+    class="mb-10 border hover:bg-[#111111] hover:text-[#EEEEE2] text-lg tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 select-none transition-colors duration-300 italic rounded-tl-lg rounded-br-lg"
+  >
+    {t("works.title")}
+  </h1>
+  {works.map((work) => <WorkCard work={work} />)}
+</div>

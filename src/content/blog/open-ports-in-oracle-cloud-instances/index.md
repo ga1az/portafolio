@@ -3,6 +3,7 @@ title: "How to Open Ports on Oracle Cloud Instances"
 date: "2025-06-24 09:38:14"
 tags: ["code", "oracle", "cloud", "networking", "security"]
 language: "en"
+icon: "oracle"
 description: "A guide on how to open ports on Oracle Cloud instances."
 ---
 

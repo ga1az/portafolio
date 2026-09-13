@@ -3,6 +3,7 @@ title: "Configuración de NextJS y Kysely"
 date: "2024-02-28 09:38:14"
 tags: ["code", "nextjs", "kysely", "typescript", "sql", "database"]
 language: "es"
+icon: "nextjs"
 description: "Configuración de NextJS y Kysely para hacer consultas sql."
 ---
 

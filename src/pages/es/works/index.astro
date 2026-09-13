@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import WorkArchive from "../../../components/WorkArchive.astro";
+import { useTranslations } from "../../../i18n/utils";
+
+const t = useTranslations("es");
+---
+
+<BaseLayout
+  title={t("works.title")}
+  lang="es"
+  alternate={{ lang: "en", href: "/works" }}
+>
+  <WorkArchive lang="es" />
+</BaseLayout>

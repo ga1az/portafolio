@@ -3,6 +3,7 @@ title: "Maneja variables de entorno en Javascript o Typescript"
 date: "2024-03-10 22:31:14"
 tags: ["code", "Javascript", "typescript", "Nodejs", "env"]
 language: "es"
+icon: "typescript"
 description: "Maneja variables de entorno de manera fácil en Javascript y Typescript"
 ---
 
@@ -28,7 +29,7 @@ pnpm add zod          # pnpm
 
 2. Crear un archivo `.env` con las variables de entorno
 
-```env frame="code" title=".env"
+```dotenv frame="code" title=".env"
 PORT=3000
 DB_HOST=
 ```

@@ -1,45 +1,52 @@
 ---
-// @ts-nocheck
 import type { CollectionEntry } from "astro:content";
+import Tile from "./Tile.astro";
 
 export type Props = {
   work: CollectionEntry<"work">;
 };
 
 const { work } = Astro.props;
+const { title, description, tags, href, hasBlog, icon } = work.data;
+
+// The outbound link gets the icon of where it goes, not a generic chain.
+const linkIcon = /github\.com/.test(href)
+  ? "ri-github-fill"
+  : /npmjs\.com/.test(href)
+    ? "ri-npmjs-fill"
+    : "ri-global-line";
 ---
 
-<div class="">
-  <div class="block w-fit">
-    <div>
+<div class="flex gap-4">
+  <Tile icon={icon} label={title} class="mt-1" />
+
+  <div class="min-w-0">
+    <div class="block w-fit">
       {
-        work.data.hasBlog ? (
-          <a href={`/works/${work.slug}`} class="flex items-center gap-2 group">
-            <span class="text-2xl">{work.data.title}</span>
+        hasBlog ? (
+          <a href={`/works/${work.id}`} class="flex items-center gap-2 group">
+            <span class="text-2xl">{title}</span>
             <i class="ri-arrow-right-line font-bold group-hover:translate-x-1 transition-transform duration-300" />
           </a>
         ) : (
-          <span class="text-2xl">{work.data.title}</span>
+          <span class="text-2xl">{title}</span>
         )
       }
     </div>
+    <p class="text-[#EEEEE2]/60">{description}</p>
+    <p class="text-[#EEEEE2]/60">{tags.join(" · ")}</p>
+    {
+      href !== "" && (
+        <a
+          href={href}
+          class="inline-flex items-center gap-1.5 text-[#EEEEE2]/60 hover:text-[#EEEEE2] transition-all"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class={linkIcon} aria-hidden="true" />
+          <span>{href.replace("https://", "")}</span>
+        </a>
+      )
+    }
   </div>
-  <p class="text-[#EEEEE2]/60">
-    {work.data.description}
-  </p>
-  <p class="text-[#EEEEE2]/60">
-    {work.data.tags.join(" · ")}
-  </p>
-  {
-    work.data.href !== "" && (
-      <a
-        href={work.data.href}
-        class="text-[#EEEEE2]/60 hover:text-[#EEEEE2] transition-all"
-        target="_blank"
-      >
-        <i class="ri-link" />
-        <span>{work.data.href.replace("https://", "")}</span>
-      </a>
-    )
-  }
 </div>

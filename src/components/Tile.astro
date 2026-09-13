@@ -1,0 +1,106 @@
+---
+import { Image } from "astro:assets";
+import { TILES } from "../data/tiles";
+import { cn } from "../libs/utils";
+
+/**
+ * App-icon tile for a project or post. Unknown or missing `icon` falls back
+ * to the entry's initials on a neutral tile, so content never renders blank.
+ */
+export type Props = {
+  icon?: string;
+  /** Used for the initials fallback and the accessible name. */
+  label: string;
+  size?: "2xs" | "xs" | "sm" | "md";
+  class?: string;
+  /** data-* hooks pass through to the tile element (the hover script uses them). */
+  [key: `data-${string}`]: string | boolean | undefined;
+};
+
+const { icon, label, size = "md", class: className, ...rest } = Astro.props;
+
+const tile = icon ? TILES[icon] : undefined;
+
+const box = {
+  "2xs": "size-5 rounded-[5px]",
+  xs: "size-[26px] rounded-[7px]",
+  sm: "size-7 rounded-[7px]",
+  md: "size-12 rounded-xl",
+}[size];
+
+// The mark takes roughly 58% of the box.
+const mark = { "2xs": "size-3", xs: "size-[15px]", sm: "size-4", md: "size-7" }[size];
+
+const initials = label
+  .replace(/^\[.*?\]\s*/, "")
+  .split(/\s+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((word) => word[0]?.toUpperCase())
+  .join("");
+
+const outline = tile?.kind === "image" && tile.outline;
+---
+
+<span
+  class={cn(
+    "flex shrink-0 items-center justify-center overflow-hidden select-none",
+    box,
+    outline && "border border-[#3A3A36]",
+    !tile && "border border-[#2A2A2A] bg-[#1C1C1C]",
+    className
+  )}
+  style={tile ? `background-color: ${tile.bg}` : undefined}
+  role="img"
+  aria-label={tile?.title ?? label}
+  {...rest}
+>
+  {
+    tile?.kind === "path" && (
+      <svg class={mark} viewBox="0 0 24 24" aria-hidden="true">
+        <path d={tile.path} fill={tile.fg} />
+      </svg>
+    )
+  }
+  {
+    tile?.kind === "braces" && (
+      <svg class={mark} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M8.5 3.5H7.8C6.2 3.5 5.5 4.3 5.5 5.9v3.2c0 1.5-.6 2.3-2 2.9 1.4.6 2 1.4 2 2.9v3.2c0 1.6.7 2.4 2.3 2.4h.7M15.5 3.5h.7c1.6 0 2.3.8 2.3 2.4v3.2c0 1.5.6 2.3 2 2.9-1.4.6-2 1.4-2 2.9v3.2c0 1.6-.7 2.4-2.3 2.4h-.7"
+          stroke={tile.fg}
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+  {
+    tile?.kind === "oracle" && (
+      <svg class={mark} viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <rect x="2" y="7" width="22" height="12" rx="6" stroke={tile.fg} stroke-width="3" />
+      </svg>
+    )
+  }
+  {
+    tile?.kind === "image" && (
+      <Image
+        src={tile.src}
+        alt=""
+        width={96}
+        height={96}
+        fit="cover"
+        class="size-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    )
+  }
+  {
+    !tile && (
+      <span class:list={["font-bold text-[#EEEEE2]", size === "md" ? "text-sm" : "text-[10px]"]}>
+        {initials}
+      </span>
+    )
+  }
+</span>

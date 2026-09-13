@@ -3,6 +3,7 @@ title: "Monitoreo de RabbitMQ con Prometheus y Grafana usando Docker"
 date: "2024-03-01 23:22:14"
 tags: ["RabbitMQ", "Prometheus", "Grafana", "Docker", "Monitoreo", "Metricas"]
 language: "es"
+icon: "rabbitmq"
 description: "Configuración de un Stack de Monitoreo para RabbitMQ con Prometheus y Grafana usando Docker Compose"
 ---
 

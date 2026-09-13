@@ -1,46 +1,42 @@
 ---
-// @ts-nocheck
 import type { CollectionEntry } from "astro:content";
+import Tile from "./Tile.astro";
 
 export type Props = {
   post: CollectionEntry<"blog">;
 };
 
 const { post } = Astro.props;
+const { title, description, language, icon } = post.data;
+const href = `/blog/${post.id}`;
 ---
 
-<div class="group">
-  <a
-    class="group cursor-pointer block w-fit"
-    href={"/blog/" + post.slug}
-    title={post.data.description}
-  >
-    <span class="text-2xl">
-      {post.data.title}
-    </span>
-  </a>
-  <p class="text-[#EEEEE2]/60">
-    {
-      post.data.language === "en" && (
-        <>
+<div class="group flex gap-4">
+  <Tile icon={icon} label={title} class="mt-1" />
+
+  <div class="min-w-0">
+    <a class="cursor-pointer block w-fit" href={href} title={description}>
+      <span class="text-2xl">{title}</span>
+    </a>
+    <p class="text-[#EEEEE2]/60">
+      {
+        language === "en" && (
           <span class="uppercase bg-[#EEEEE2] text-[#111111] pl-1 mr-1 text-xs">
             english
           </span>
-        </>
-      )
-    }
-    {post.data.description}
-  </p>
-  <a
-    class="cursor-pointer block w-fit mb-4 hover:pl-2 group-hover:pl-2 transition-all"
-    href={"/blog/" + post.slug}
-    title={post.data.description}
-  >
-    <p>
-      <span>
-        {post.data.language === "en" ? "Read" : "Leer"}
-      </span>
-      <i class="ri-arrow-right-line"></i>
+        )
+      }
+      {description}
     </p>
-  </a>
+    <a
+      class="cursor-pointer block w-fit mb-4 hover:pl-2 group-hover:pl-2 transition-all"
+      href={href}
+      title={description}
+    >
+      <p>
+        <span>{language === "en" ? "Read" : "Leer"}</span>
+        <i class="ri-arrow-right-line"></i>
+      </p>
+    </a>
+  </div>
 </div>

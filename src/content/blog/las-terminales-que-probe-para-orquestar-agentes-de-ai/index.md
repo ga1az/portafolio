@@ -3,6 +3,7 @@ title: "Las terminales que probé para orquestar agentes de AI"
 date: "2026-04-03 10:00:00"
 tags: ["terminal", "ai", "agentes", "opencode", "claude-code", "codex", "developer-tools"]
 language: "es"
+icon: "superset"
 description: "Las terminales que probé antes de quedarme con Superset para ordenar múltiples agentes de AI en varios proyectos."
 ---
 

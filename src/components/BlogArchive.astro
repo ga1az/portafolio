@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BlogCard from "./BlogCard.astro";
+import type { Lang } from "../i18n/ui";
+import { localizePath, otherLang, useTranslations } from "../i18n/utils";
+
+/** The writing archive for one language. Posts keep their own slugs. */
+export type Props = { lang: Lang };
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const other = otherLang(lang);
+
+const posts = (
+  await getCollection("blog", (post) => post.data.language === lang)
+).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<div class="mt-10 sm:mt-20 space-y-10">
+  {
+    posts.map((post, i) => (
+      <>
+        {post.data.date.getFullYear() !==
+          (posts[i - 1]?.data.date.getFullYear() || 0) && (
+          <div class="mb-10 text-lg border flex justify-between pr-8 hover:bg-[#111111] hover:text-[#EEEEE2] tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 cursor-pointer transition-colors duration-300 italic rounded-tl-lg rounded-br-lg">
+            <h2>{post.data.date.getFullYear()}</h2>
+            <a
+              href={localizePath(other, "/blog")}
+              hreflang={other}
+              data-set-lang={other}
+            >
+              {t("blog.otherArchive")}
+              <i class="ri-arrow-right-line" />
+            </a>
+          </div>
+        )}
+        <BlogCard post={post} />
+      </>
+    ))
+  }
+</div>

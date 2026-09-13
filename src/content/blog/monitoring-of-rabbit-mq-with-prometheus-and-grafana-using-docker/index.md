@@ -3,6 +3,7 @@ title: "RabbitMQ monitoring with Prometheus and Grafana using Docker"
 date: "2024-03-01 23:22:14"
 tags: ["RabbitMQ", "Prometheus", "Grafana", "Docker", "Monitoring", "Metrics"]
 language: "en"
+icon: "rabbitmq"
 description: "Configuration of a Monitoring Stack for RabbitMQ with Prometheus and Grafana using Docker Compose"
 ---
 
@@ -38,7 +39,7 @@ The first thing we need is to have [Docker](https://docs.docker.com/get-docker/)
 
 To configure RabbitMQ, we are going to create a Dockerfile that allows us to install the [Prometheus](https://www.rabbitmq.com/prometheus.html) plugin and expose port 15692.
 
-```Dockerfile frame="code" title="/rabbitmq/Dockerfile"
+```dockerfile frame="code" title="/rabbitmq/Dockerfile"
 FROM rabbitmq:3.12.0-management
 RUN apt-get update && apt-get install -y wget
 RUN rabbitmq-plugins enable rabbitmq_management

@@ -1,27 +1,16 @@
 ---
-// @ts-nocheck
-import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import WorkCard from "../../components/WorkCard.astro";
+import WorkArchive from "../../components/WorkArchive.astro";
+import { useTranslations } from "../../i18n/utils";
 
-const works = (await getCollection("work")).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
+const t = useTranslations("en");
 ---
 
-<BaseLayout center={false}>
-  <div class="mt-10 sm:mt-20 space-y-10">
-    <h1
-      class="mb-10 border hover:bg-[#111111] hover:text-[#EEEEE2] text-lg tracking-widest bg-[#EEEEE2] text-[#111111] pl-5 select-none transition-colors duration-300 italic rounded-tl-lg rounded-br-lg"
-    >
-      Works
-    </h1>
-    {
-      works.map((work) => (
-        <>
-          <WorkCard work={work} />
-        </>
-      ))
-    }
-  </div>
+<BaseLayout
+  title={t("works.title")}
+  lang="en"
+  alternate={{ lang: "es", href: "/es/works" }}
+  autoLocale
+>
+  <WorkArchive lang="en" />
 </BaseLayout>

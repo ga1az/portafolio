@@ -10,6 +10,7 @@ tags: ["Next.js",
     "React Query",
     "Zod"]
 language: "en"
+icon: "snippet"
 description: "A modern, AI-powered code snippet management application that enables you to create, organize, and share your code snippets."
 href: "https://editor.ga1az.com/es/login"
 hasBlog: true

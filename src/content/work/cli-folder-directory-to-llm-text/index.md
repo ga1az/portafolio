@@ -3,6 +3,8 @@ title: "[CLI] Instant Code Context for AI"
 date: "2025-05-22 15:38:14"
 tags: ["Go","CLI", "LLM", "AI", "Code Context"]
 language: "en"
+icon: "go"
+shortTitle: "PathDigest"
 description: "PathDigest is a Go-based CLI tool that transforms any Git repository or local directory into a concise text digest. It optimizes code structure and content for easy ingestion as context in Prompts for Large Language Models (LLMs)."
 href: ""
 hasBlog: true

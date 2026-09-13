@@ -1,29 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
 ---
 
-<BaseLayout center={true}>
-  <div class="text-xl sm:text-2xl space-y-2">
-    <div class="font-bold text-3xl mb-10">
-      <p>Hello,</p>
-      <span>I'm Sergio.</span>
-    </div>
-    <h1 class="text-[#EEEEE2]/70 tracking-wide">
-      I'm a software developer and open-source enthusiast with experience in
-      fullstack development.
-    </h1>
-    <h1 class="text-[#EEEEE2]/70 tracking-wide">
-      In my free time, I enjoy working on personal projects and sharing my
-      learnings on my <a
-        href="/blog"
-        target=""
-        class="text-[#EEEEE2] hover:text-green-400 underline decoration-green-400 transition duration-300 ease-in-out"
-        >blog</a
-      >. You can check out my <a
-        href="/works"
-        class="text-[#EEEEE2] hover:text-blue-400 underline decoration-blue-400 transition duration-300 ease-in-out"
-        >portfolio</a
-      > to see my recent work.
-    </h1>
-  </div>
+<BaseLayout center lang="en" alternate={{ lang: "es", href: "/es/" }} autoLocale>
+  <Hero lang="en" />
 </BaseLayout>

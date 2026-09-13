@@ -3,6 +3,7 @@ title: "The terminals I tried to orchestrate AI agents"
 date: "2026-04-03 10:00:00"
 tags: ["terminal", "ai", "agents", "opencode", "claude-code", "codex", "developer-tools"]
 language: "en"
+icon: "superset"
 description: "The terminals I tried before settling on Superset to organize multiple AI agents across multiple projects."
 ---
 

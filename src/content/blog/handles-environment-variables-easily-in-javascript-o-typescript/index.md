@@ -3,6 +3,7 @@ title: "Handles environment variables in Javascript or Typescript"
 date: "2024-03-10 22:31:14"
 tags: ["code", "Javascript", "typescript", "Nodejs", "env"]
 language: "en"
+icon: "typescript"
 description: "Manage environment variables easily in Javascript and Typescript"
 ---
 
@@ -28,7 +29,7 @@ pnpm add zod          # pnpm
 
 2. Create a `.env` file with the environment variables
 
-```env frame="code" title=".env"
+```dotenv frame="code" title=".env"
 PORT=3000
 DB_HOST=
 ```

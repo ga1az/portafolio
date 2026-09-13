@@ -2,12 +2,9 @@
 import { SEO } from "astro-seo";
 import "remixicon/fonts/remixicon.css";
 import faviconImg from "../../public/favicon.png";
-import {
-  DESCRIPTION,
-  HEADER_IMAGE,
-  SITE_NAME,
-  TWITTER_ACCOUNT,
-} from "../constants";
+import { HEADER_IMAGE, SITE, SITE_NAME, TWITTER_ACCOUNT } from "../constants";
+import type { Lang } from "../i18n/ui";
+import { LOCALE, localizePath, otherLang, useTranslations } from "../i18n/utils";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { cn } from "../libs/utils";
@@ -18,22 +15,107 @@ export type Props = {
   title?: string;
   description?: string;
   article?: { tags: string[]; date: string };
-  language?: string;
+  /** Language of the chrome AND the content. Defaults to the site default. */
+  lang?: Lang;
+  /**
+   * The same content in the other language, when it exists. Drives the
+   * hreflang tags and the language switch. Leave it out for single-language
+   * pages (work write-ups) and the switch falls back to the other home page.
+   */
+  alternate?: { lang: Lang; href: string };
+  /**
+   * Hub pages only: send visitors whose browser prefers the other language to
+   * `alternate` before first paint. Never set on content pages, so a shared
+   * link always opens what it points to.
+   */
+  autoLocale?: boolean;
   center?: boolean;
 };
 
 const {
   title,
-  description = DESCRIPTION,
   article,
-  language = "es",
+  lang = "en",
+  alternate,
+  autoLocale = false,
   center = false,
 } = Astro.props;
+
+const t = useTranslations(lang);
+const description = Astro.props.description ?? t("site.description");
+
+// Where the language switch points. Same content when it exists, otherwise
+// the other language's home page.
+const other = otherLang(lang);
+const switchTarget = {
+  lang: other,
+  href: alternate?.href ?? localizePath(other, "/"),
+};
+
+// Astro's static output uses directory URLs, and astro-seo builds the
+// canonical tag from Astro.url.pathname (which already carries the trailing
+// slash). hreflang must match the canonical form exactly.
+const absolute = (path: string) =>
+  new URL(path.endsWith("/") ? path : `${path}/`, SITE).href;
+
+const languageAlternates = alternate
+  ? [
+      { hrefLang: lang, href: absolute(Astro.url.pathname) },
+      { hrefLang: alternate.lang, href: absolute(alternate.href) },
+      {
+        hrefLang: "x-default",
+        href: absolute(lang === "en" ? Astro.url.pathname : alternate.href),
+      },
+    ]
+  : undefined;
 ---
 
-<html lang={language} class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
+    {
+      /*
+        Runs before first paint. Sends the visitor to the other language's
+        edition of this page when they picked it before (localStorage) or,
+        failing that, when the browser's language list prefers it. Only the
+        English hub pages opt in, so nothing ever redirects *away* from /es/
+        and crawlers (which report en-US) always see the page they requested.
+      */
+      autoLocale && alternate && (
+        <script
+          is:inline
+          data-astro-rerun
+          data-target={alternate.lang}
+          data-href={alternate.href}
+        >
+          (function () {
+            try {
+              var target = document.currentScript.dataset.target;
+              var href = document.currentScript.dataset.href;
+              var wanted = localStorage.getItem("lang");
+              if (wanted !== "en" && wanted !== "es") {
+                var list = navigator.languages || [navigator.language];
+                wanted = "en";
+                for (var i = 0; i < list.length; i++) {
+                  var code = String(list[i] || "")
+                    .slice(0, 2)
+                    .toLowerCase();
+                  if (code === "en" || code === "es") {
+                    wanted = code;
+                    break;
+                  }
+                }
+              }
+              if (wanted === target) location.replace(href);
+            } catch (e) {
+              /* no storage, no redirect */
+            }
+          })();
+        </script>
+      )
+    }
+
     <script
+      is:inline
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5387632935092389"
       crossorigin="anonymous"></script>
@@ -49,6 +131,7 @@ const {
     <title>{title ? `${title} - ${SITE_NAME}` : SITE_NAME}</title>
     <SEO
       description={description}
+      languageAlternates={languageAlternates}
       openGraph={{
         basic: {
           title: title ?? SITE_NAME,
@@ -56,7 +139,12 @@ const {
           image: HEADER_IMAGE,
         },
         image: { alt: "ga1az" },
-        optional: { description, siteName: SITE_NAME },
+        optional: {
+          description,
+          siteName: SITE_NAME,
+          locale: LOCALE[lang].og,
+          localeAlternate: alternate ? [LOCALE[alternate.lang].og] : undefined,
+        },
         article: {
           authors: article && ["Sergio Galaz"],
           publishedTime: article?.date,
@@ -78,16 +166,38 @@ const {
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <ClientRouter />
   </head>
   <body
     class="max-w-3xl py-6 sm:py-16 mx-auto flex
     flex-col min-h-[100dvh] px-4
     bg-[#111111] text-[#EEEEE2]"
   >
-    <Header />
+    <Header lang={lang} switchTarget={switchTarget} />
     <main class={cn("grow", center && "flex justify-center items-center")}>
       <slot />
     </main>
     <Footer />
-  </body><ClientRouter />
+
+    <script>
+      // An explicit language choice must win over the browser's preference,
+      // so the hub-page redirect stops second-guessing the visitor once they
+      // pick. ClientRouter swaps the document without a reload: bind per page.
+      function initLanguageSwitch() {
+        document
+          .querySelectorAll<HTMLAnchorElement>("[data-set-lang]")
+          .forEach((link) => {
+            link.addEventListener("click", () => {
+              try {
+                localStorage.setItem("lang", link.dataset.setLang ?? "");
+              } catch {
+                /* private mode: the choice just does not persist */
+              }
+            });
+          });
+      }
+
+      document.addEventListener("astro:page-load", initLanguageSwitch);
+    </script>
+  </body>
 </html>

@@ -1,28 +1,28 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../i18n/utils";
 
 export async function getStaticPaths() {
   const entries = await getCollection("work");
   return entries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const ISODate = entry.data.date.toISOString();
-const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat("es-ES", { dateStyle: "full" }).format(date);
-};
+// Write-ups are English-only, so there is no alternate for this page.
+const lang = entry.data.language;
 ---
 
 <BaseLayout
   title={entry.data.title}
   description={entry.data.description}
   article={{ tags: entry.data.tags, date: ISODate }}
-  language={entry.data.language}
+  lang={lang}
 >
   <h1 class="text-4xl mt-20">
     {entry.data.title}
@@ -30,7 +30,7 @@ const formatDate = (date: Date) => {
   <div class="text-[#EEEEE2]/60 mb-10 text-sm mt-2 flex flex-col space-y-1">
     <div class="flex items-center space-x-2">
       <i class="ri-calendar-line"></i>
-      <time datetime={ISODate}>{formatDate(entry.data.date)}</time>
+      <time datetime={ISODate}>{formatDate(entry.data.date, lang)}</time>
     </div>
     <div class="flex items-center space-x-2">
       <i class="ri-price-tag-3-line"></i>

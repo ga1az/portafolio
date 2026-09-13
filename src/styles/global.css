@@ -1,2 +1,64 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* ---------------------------------------------------------------------------
+   Hover cards on the home intro links (Hero.astro).
+
+   CSS owns show/hide on its own, so the cards work with scripts off. When the
+   animation script boots it flags <html data-hover-anim> and takes over
+   visibility, opacity and transform through anime.js; every rule below that
+   would fight it is scoped to the flag being absent.
+--------------------------------------------------------------------------- */
+
+.hover-card {
+  position: absolute;
+  bottom: 100%;
+  z-index: 20;
+  /* The bridge: the pointer can leave the word upward without a gap that
+     would close the card before it reaches it. */
+  padding-bottom: 0.75rem;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Same card, opening downward (used where there is no room above). */
+.hover-card--below {
+  bottom: auto;
+  top: 100%;
+  padding-bottom: 0;
+  padding-top: 0.75rem;
+}
+
+html:not([data-hover-anim]) .hover-card {
+  transform: translateY(4px);
+  transition:
+    opacity 200ms,
+    transform 200ms,
+    visibility 200ms;
+}
+
+html:not([data-hover-anim]) .hover-card--below {
+  transform: translateY(-4px);
+}
+
+/* Only pointers that can hover; on touch the tap just follows the link. */
+@media (hover: hover) {
+  html:not([data-hover-anim]) .hover-trigger:hover > .hover-card {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 100ms;
+  }
+}
+
+html:not([data-hover-anim]) .hover-trigger:focus-within > .hover-card {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-card {
+    transition: none !important;
+  }
+}
