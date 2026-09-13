@@ -62,3 +62,29 @@ html:not([data-hover-anim]) .hover-trigger:focus-within > .hover-card {
     transition: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Page backdrop (Backdrop.astro): an ASCII skyline along the bottom edge.
+   Sits behind everything and ignores the pointer; the component hides it
+   below lg.
+--------------------------------------------------------------------------- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdrop-skyline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  translate: -50%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgb(238 238 226 / 0.28);
+  white-space: pre;
+}

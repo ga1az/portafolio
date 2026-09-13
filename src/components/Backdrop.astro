@@ -1,0 +1,17 @@
+---
+/*
+  The page backdrop: an ASCII skyline along the bottom edge (the Andes, seen
+  from Santiago).
+  Decoration only: hidden from assistive tech, never catches the pointer,
+  and left out of narrow viewports where it would sit under the text.
+
+  The skyline is 480 columns (~3450px in a 12px monospace) so it still fills
+  an ultrawide screen; it is centred, so the same stretch shows at 1440px.
+  Styles live in global.css (.backdrop-*).
+*/
+import skyline from "../assets/skyline.txt?raw";
+---
+
+<div class="backdrop hidden lg:block print:hidden" aria-hidden="true">
+  <pre class="backdrop-skyline">{skyline.trimEnd()}</pre>
+</div>
