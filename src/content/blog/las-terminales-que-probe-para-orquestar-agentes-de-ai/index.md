@@ -30,88 +30,6 @@ description: "Las terminales que probé antes de quedarme con Superset para orde
   </a>
 </div>
 
-<style>
-  .terminal-deck {
-    display: flex;
-    align-items: stretch;
-    margin: 24px 0 32px;
-    padding: 8px 0;
-    overflow-x: auto;
-  }
-
-  .terminal-deck-card {
-    min-width: 138px;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 18px;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    transition: transform 220ms ease, margin 220ms ease, box-shadow 220ms ease,
-      border-color 220ms ease;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(10px);
-    position: relative;
-    z-index: 1;
-    margin-left: -26px;
-  }
-
-  .terminal-deck-card:first-child {
-    margin-left: 0;
-  }
-
-  .terminal-deck:hover .terminal-deck-card {
-    margin-left: 10px;
-  }
-
-  .terminal-deck:hover .terminal-deck-card:first-child {
-    margin-left: 0;
-  }
-
-  .terminal-deck-card:hover {
-    transform: translateY(-6px);
-    z-index: 5;
-    border-color: rgba(255, 255, 255, 0.24);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-  }
-
-  .terminal-deck-card img {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    object-fit: contain;
-  }
-
-  .terminal-deck-card strong {
-    color: #eeeee2;
-    font-size: 0.95rem;
-  }
-
-  .terminal-deck-card--light img {
-    background: #fff;
-    padding: 4px;
-  }
-
-  @media (max-width: 720px) {
-    .terminal-deck {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      overflow: visible;
-    }
-
-    .terminal-deck-card,
-    .terminal-deck-card:first-child,
-    .terminal-deck:hover .terminal-deck-card,
-    .terminal-deck:hover .terminal-deck-card:first-child {
-      margin-left: 0;
-    }
-  }
-</style>
 
 Una vez que empiezas a correr múltiples agentes de AI en varios proyectos al mismo tiempo, la terminal deja de ser solo una terminal.
 
@@ -121,7 +39,7 @@ Este fue mi recorrido: [Ghostty](https://ghostty.org/), [Warp](https://www.warp.
 
 ## Ghostty
 
-![Ghostty](https://ghostty.org/social-share-card.jpg)
+![Ghostty](./ghostty.jpg "Ghostty")
 
 Empecé con Ghostty porque se sentía rápida, nativa y limpia.
 
@@ -131,7 +49,7 @@ Entonces no fue que Ghostty me pareciera mala. Fue más bien que yo ya estaba bu
 
 ## Warp
 
-![Warp](https://framerusercontent.com/images/vvDFwPAa66yI9T0kGNhd43kHcM.png)
+![Warp](./warp.png "Warp")
 
 Después me pasé a Warp porque parecía el siguiente paso lógico.
 
@@ -141,7 +59,7 @@ Pero con el tiempo me di cuenta de que la estaba usando casi como una terminal n
 
 ## cmux
 
-![cmux](https://cmux.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flanding-image.70ebd164.png&w=3840&q=75&dpl=dpl_4d5DQq9vW8Cmy1v2ik3ED7jjkeBD)
+![cmux](./cmux.png "cmux")
 
 Luego probé cmux, y esta me llamó la atención enseguida.
 
@@ -153,7 +71,7 @@ La dirección me gustó mucho. La ejecución todavía no tanto como para quedarm
 
 ## Conductor
 
-![Conductor](https://www.conductor.build/_next/image?url=%2Fdark-screenshot-no-bg.png&w=3840&q=75)
+![Conductor](./conductor.webp "Conductor")
 
 Después de eso me fui a Conductor.
 
@@ -165,7 +83,7 @@ Así que, aunque me parece un producto muy bien construido, no fue el lugar dond
 
 ## Superset
 
-![Superset](https://superset.sh/og-image.png)
+![Superset](./superset.png "Superset")
 
 Superset fue la primera herramienta donde realmente me hizo click todo el flujo.
 

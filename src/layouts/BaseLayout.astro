@@ -5,7 +5,6 @@ import faviconImg from "../../public/favicon.png";
 import { HEADER_IMAGE, SITE, SITE_NAME, TWITTER_ACCOUNT } from "../constants";
 import type { Lang } from "../i18n/ui";
 import { LOCALE, localizePath, otherLang, useTranslations } from "../i18n/utils";
-import Backdrop from "../components/Backdrop.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { cn } from "../libs/utils";
@@ -174,7 +173,6 @@ const languageAlternates = alternate
     flex-col min-h-[100dvh] px-4
     bg-[#111111] text-[#EEEEE2]"
   >
-    <Backdrop />
     <Header lang={lang} switchTarget={switchTarget} />
     <main class={cn("grow", center && "flex justify-center items-center")}>
       <slot />

@@ -18,7 +18,23 @@ hasBlog: true
 
 Snippet Manager is the best alternative to GitHub Gist. Keep all your code snippets neatly organized, group them into folders, share snippets with your friends, explore public snippets, and have them reviewed by AI.
 
->  [Live Demo without AI.](https://editor.ga1az.com/es/login)
+[Live demo without AI](https://editor.ga1az.com/es/login)
+
+![Login screen](./login.png "Login")
+
+<figure>
+  <video autoplay loop muted playsinline controls preload="metadata" poster="/snippet-manager/ai-improvement.jpg" width="1202" height="720">
+    <source src="/snippet-manager/ai-improvement.mp4" type="video/mp4">
+  </video>
+  <figcaption>AI improvements</figcaption>
+</figure>
+
+<figure>
+  <video autoplay loop muted playsinline controls preload="metadata" poster="/snippet-manager/folder.jpg" width="1186" height="720">
+    <source src="/snippet-manager/folder.mp4" type="video/mp4">
+  </video>
+  <figcaption>Folders</figcaption>
+</figure>
 
 ## Tech Stack
 
@@ -33,18 +49,3 @@ This application is built with:
 - **BetterAuth**  
 
 The database is structured as a multi-tenant system, partitioning data securely on the backend so each user’s snippets remain isolated.
-
-
-## Screenshots & GIFs
-
-> Login
-
-![Login](./login.png)
-
-> AI improvements
-
-![Ai](./ai-improvement.gif)
-
-> Folder
-
-![Folder](./folder.gif)

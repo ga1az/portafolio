@@ -1,0 +1,54 @@
+---
+/** Zoom for article screenshots + pause looping videos when motion is reduced. */
+---
+
+<dialog
+  id="img-zoom"
+  class="m-auto max-h-[92vh] max-w-[92vw] border-0 bg-transparent p-0 backdrop:bg-[#111111]/92"
+>
+  <img alt="" class="max-h-[92vh] max-w-[92vw] object-contain" />
+</dialog>
+
+<script>
+  function initArticleMedia() {
+    const dialog = document.querySelector<HTMLDialogElement>("#img-zoom");
+    const zoomImg = dialog?.querySelector("img");
+    if (!dialog || !zoomImg) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll<HTMLVideoElement>("article video").forEach((video) => {
+        video.removeAttribute("autoplay");
+        video.pause();
+        video.controls = true;
+      });
+    }
+
+    const onClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof HTMLImageElement)) return;
+      if (!target.closest("article.prose")) return;
+      if (target.closest("a, .terminal-deck, .callout, .expressive-code")) return;
+      event.preventDefault();
+      zoomImg.src = target.currentSrc || target.src;
+      zoomImg.alt = target.alt;
+      dialog.showModal();
+    };
+
+    document.addEventListener("click", onClick);
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        document.removeEventListener("click", onClick);
+        dialog.close();
+      },
+      { once: true },
+    );
+  }
+
+  document.addEventListener("astro:page-load", initArticleMedia);
+</script>

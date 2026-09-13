@@ -9,7 +9,7 @@ description: "Configuración de un Stack de Monitoreo para RabbitMQ con Promethe
 
 En esta guia mostraremos como configurar nuestro docker-compose para que se ejecute un stack de monitoreo para [RabbitMQ](https://www.rabbitmq.com/) con [Prometheus](https://prometheus.io/) y [Grafana](https://grafana.com/).
 
-![grafana dashboard](./grafana-dashboard.png)
+![Dashboard de Grafana](./grafana-dashboard.png "Dashboard de Grafana")
 
 Estructura del proyecto:
 
@@ -175,7 +175,8 @@ si tienes la versión docker-compose V2:
 docker compose up -d
 ```
 
-> el flag `-d` es para que se ejecute en segundo plano. Si no lo usas, verás los logs de los servicios en la terminal.
+> [!TIP]
+> El flag `-d` es para que se ejecute en segundo plano. Si no lo usas, verás los logs de los servicios en la terminal.
 
 Una vez que todos los servicios estén corriendo, podemos acceder a la diferentes interfaces:
 
@@ -190,7 +191,7 @@ Para comprobar si Prometheus está scrapeando las métricas de RabbitMQ, vamos a
 
 Ahí vamos a ver que el target `rmq0:15692` está en estado `UP` y que la última vez que se scrapeó fue hace unos segundos.
 
-![prometheus targets](./prometheus.png)
+![Targets de Prometheus](./prometheus.png "Targets de Prometheus")
 
 ## Crear una cola en RabbitMQ
 
@@ -211,7 +212,8 @@ Una vez logueados, vamos a la pestaña `Dashboards`
 
 Ahí vamos a ver que el dashboard `RabbitMQ-Overview` está disponible, hacemos click en él y vamos a ver las métricas de RabbitMQ.
 
-> Si no ves el dashboard, puedes importarlo manualmente. Para ello, haz click en `new` y luego en `import` y pega el siguiente codigo `10991` en la opcion `Find and import dashboards for common applications at grafana.com/dashboards`
+> [!TIP]
+> Si no ves el dashboard, puedes importarlo manualmente. Para ello, haz click en `new` y luego en `import` y pega el siguiente codigo `10991` en la opcion `Find and import dashboards for common applications at grafana.com/dashboards`.
 
 ahora podemos ver que en el dashboard de RabbitMQ, en la sección `Queues` está la cola que acabamos de crear y que tiene un mensaje en la cola.
 

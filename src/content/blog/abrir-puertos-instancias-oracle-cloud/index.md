@@ -12,27 +12,27 @@ Sin duda alguna, una de las cosas que más se nos dificulta al momento de config
 > [!NOTE]
 > Si estas utilizando UFW, tienes que desactivarlo ya que no es recomendado usarlo en conjunto con Oracle Cloud, ya que puede causar graves problemas.
 
-# Abrir puertos en instancias de Oracle Cloud (WEB)
+## Abrir puertos en instancias de Oracle Cloud (WEB)
 
 el primer paso es ir a [Instancias](https://cloud.oracle.com/compute/instances) y seleccionar la instancia que deseas configurar.
 
 nos vamos a la seccion de **Instance details** y seleccionamos el acceso a **Virtual cloud network**
 
-![vcn](./vcn.png)
+![Lista de VCNs en la consola](./vcn.png "Red virtual (VCN)")
 
 Una vez dentro de la VCN, nos vamos a el tab de **Security** y seleccionamos nuestra Regla de seguridad, en la mayoría de los casos es la regla de seguridad por defecto.
 
-![vcn-details](./vcn-detail.png)
+![Detalle de la VCN](./vcn-detail.png "Reglas de seguridad")
 
 Ahora en **Add Ingress Rules** vamos a agregar la regla de seguridad para el puerto que deseamos abrir. En este caso vamos a abrir el puerto 8080.
 
-![add](./add.png)
+![Add Ingress Rules](./add.png "Add Ingress Rules")
 
-![add-detail](./add-detail.png)
+![Detalle de la regla](./add-detail.png "Regla para el puerto 8080")
 
 Guardamos los cambios y ahora nos conectamos a la instancia mediante SSH.
 
-# Modificar el firewall de la instancia
+## Modificar el firewall de la instancia
 
 Una vez dentro de la instancia, vamos a modificar el firewall de la instancia.
 

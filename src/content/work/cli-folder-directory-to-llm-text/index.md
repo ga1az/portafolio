@@ -12,17 +12,19 @@ hasBlog: true
 
 PathDigest is a Go-based CLI tool that transforms any Git repository or local directory into a concise text digest. It optimizes code structure and content for easy ingestion as context in Prompts for Large Language Models (LLMs).
 
-> Local Directory
+<figure>
+  <video autoplay loop muted playsinline controls preload="metadata">
+    <source src="/directory.mp4" type="video/mp4">
+  </video>
+  <figcaption>Local directory</figcaption>
+</figure>
 
-<video width="600" autoplay loop muted>
-  <source src="/directory.mp4" type="video/mp4">
-</video>
-
-> GitHub Repository
-
-<video width="600" autoplay loop muted>
-  <source src="/github.mp4" type="video/mp4">
-</video>
+<figure>
+  <video autoplay loop muted playsinline controls preload="metadata">
+    <source src="/github.mp4" type="video/mp4">
+  </video>
+  <figcaption>GitHub repository</figcaption>
+</figure>
 
 ## Features
 - ⚙️ Intuitive CLI: Easy to use from your terminal.

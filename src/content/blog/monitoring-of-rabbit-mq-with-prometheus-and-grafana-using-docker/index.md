@@ -9,7 +9,7 @@ description: "Configuration of a Monitoring Stack for RabbitMQ with Prometheus a
 
 In this guide we will show how to configure our docker-compose to run a monitoring stack for [RabbitMQ](https://www.rabbitmq.com/) with [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/).
 
-![grafana dashboard](./grafana-dashboard.png)
+![Grafana dashboard](./grafana-dashboard.png "Grafana dashboard")
 
 Project structure:
 
@@ -175,7 +175,8 @@ if you have the docker-compose V2 version:
 docker compose up -d
 ```
 
-> the `-d` flag is to run in the background. If you don't use it, you will see the logs of the services in the terminal.
+> [!TIP]
+> The `-d` flag is to run in the background. If you don't use it, you will see the logs of the services in the terminal.
 
 Once all the services are running, we can access the different interfaces:
 
@@ -190,7 +191,7 @@ To check if Prometheus is scraping the RabbitMQ metrics, go to the Prometheus in
 
 There we will see that the target `rmq0:15692` is in `UP` status and that the last time it was scraped was a few seconds ago.
 
-![prometheus targets](./prometheus.png)
+![Prometheus targets](./prometheus.png "Prometheus targets")
 
 ## Creating a queue in RabbitMQ
 
@@ -211,7 +212,8 @@ Once logged in, we go to the `Dashboards` tab.
 
 There we will see that the `RabbitMQ-Overview` dashboard is available, we click on it and we will see the RabbitMQ metrics.
 
-> If you do not see the dashboard, you can import it manually. To do so, click on `new` and then `import` and paste the following code `10991` in the `Find and import dashboards for common applications at grafana.com/dashboards` option
+> [!TIP]
+> If you do not see the dashboard, you can import it manually. To do so, click on `new` and then `import` and paste the following code `10991` in the `Find and import dashboards for common applications at grafana.com/dashboards` option.
 
 Now we can see that in the RabbitMQ dashboard, in the `Queues` section there is the queue we just created and it has a message in the queue.
 

@@ -23,7 +23,8 @@ Luego de que se haya creado nuestro proyecto, vamos a instalar las dependencias 
 npm install kysely pg
 ```
 
-> Nota: si estas ocupando una base de datos diferente a postgresql, puedes instalar el driver de tu base de datos, por ejemplo para mysql seria `npm install mysql2` y para sqlite seria `better-sqlite3`.
+> [!NOTE]
+> Si estas ocupando una base de datos diferente a postgresql, puedes instalar el driver de tu base de datos, por ejemplo para mysql seria `npm install mysql2` y para sqlite seria `better-sqlite3`.
 
 ## Configuración
 
@@ -37,7 +38,7 @@ Ocuparemos esta estructura para ordenar nuestros archivos:
 │   │   └── types.ts
 ```
 
-En el archivo `db.ts` vamos a crear nuestra conexión a la base de datos, en mi caso ocuparé (Supabase)[https://supabase.io/], pero puedes ocupar cualquier base de datos que quieras.
+En el archivo `db.ts` vamos a crear nuestra conexión a la base de datos, en mi caso ocuparé [Supabase](https://supabase.io/), pero puedes ocupar cualquier base de datos que quieras.
 
 ```ts title="lib/database/db.ts"
 import { Database } from "./types"; // definimos nuestros tipos de datos, más adelante veremos cómo crearlos
@@ -75,7 +76,8 @@ DB_PORT=5432
 
 también vamos a crear un archivo `types.ts` para definir nuestros tipos de datos
 
-> Nota: en este caso vamos a usar `Generated` para definir el tipo de dato de una columna que se genera automáticamente, por ejemplo un ID.
+> [!NOTE]
+> En este caso vamos a usar `Generated` para definir el tipo de dato de una columna que se genera automáticamente, por ejemplo un ID.
 
 Estos tipos de datos nos ayudarán a tener un mejor autocompletado al momento de escribir nuestras consultas.
 
@@ -197,7 +199,8 @@ export async function getUsers() {
 
 en este archivo estamos exportando una función llamada `getUsers` que se encarga de obtener todos los usuarios de la base de datos.
 
-> Nota: estamos usando `use server` para poder ejecutar este archivo en el servidor
+> [!NOTE]
+> Estamos usando `use server` para poder ejecutar este archivo en el servidor.
 
 Ahora si vamos a nuestro archivo `app/page.tsx` y vamos a importar nuestra función `getUsers` y la vamos a ejecutar.
 

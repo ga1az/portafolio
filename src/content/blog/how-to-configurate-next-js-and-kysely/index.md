@@ -23,7 +23,8 @@ After our project has been created, we are going to install the Kysely dependenc
 npm install kysely pg
 ```
 
-> Note: if you are using a database other than postgresql, you can install the driver for your database, for example for mysql it would be `npm install mysql2` and for sqlite it would be `better-sqlite3`.
+> [!NOTE]
+> If you are using a database other than postgresql, you can install the driver for your database, for example for mysql it would be `npm install mysql2` and for sqlite it would be `better-sqlite3`.
 
 ## Configuration
 
@@ -37,7 +38,7 @@ We will use this structure to order our files:
 │   │   └── types.ts
 ```
 
-In the `db.ts` file we are going to create our database connection, in my case I will occupy (Supabase)[https://supabase.io/], but you can occupy any database you want.
+In the `db.ts` file we are going to create our database connection, in my case I will occupy [Supabase](https://supabase.io/), but you can occupy any database you want.
 
 ```ts title="lib/database/db.ts"
 import { Database } from "./types"; // we define our data types, later on we will see how to create them.
@@ -75,7 +76,8 @@ DB_PORT=5432
 
 we are also going to create a `types.ts` file to define our data types
 
-> Note: in this case we are going to use `Generated` to define the data type of a column that is automatically generated, for example an ID.
+> [!NOTE]
+> In this case we are going to use `Generated` to define the data type of a column that is automatically generated, for example an ID.
 
 These data types will help us to have a better autocompletion when writing our queries.
 
@@ -197,7 +199,8 @@ export async function getUsers() {
 
 in this file we are exporting a function called `getUsers` which is in charge of getting all the users from the database.
 
-> Note: we are using `use server` so we can run this file on the server.
+> [!NOTE]
+> We are using `use server` so we can run this file on the server.
 
 Now if we go to our `app/page.tsx` file and we are going to import our `getUsers` function and we are going to execute it.
 

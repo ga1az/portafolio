@@ -7,7 +7,7 @@ icon: "typescript"
 description: "Maneja variables de entorno de manera fácil en Javascript y Typescript"
 ---
 
-![.env](./env.png)
+![Archivo .env](./env.png "Archivo .env")
 
 Sin duda, algo que hacemos siempre al crear un proyecto de JavaScript, Node.js, Bun, etc. es manejar variables de entorno. Para ello, creamos un archivo `.env` y lo leemos con `process.env`. Sin embargo, esto puede ser un poco tedioso, validar que existan todas las variables, que tengan un valor por defecto, etc.
 

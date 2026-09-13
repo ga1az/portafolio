@@ -9,11 +9,11 @@ href: "https://react-pixel-motion.ga1az.com"
 hasBlog: true
 ---
 
-# React Pixel Motion
+A lightweight React component for creating smooth, pixelated sprite animations. Perfect for games, retro-style interfaces, and pixel art animations. The npm package is available at [@ga1az/react-pixel-motion](https://npmjs.com/package/@ga1az/react-pixel-motion).
 
-<div class="mb-10">
-  A lightweight React component for creating smooth, pixelated sprite animations. Perfect for games, retro-style interfaces, and pixel art animations. The library is built with TypeScript and React, the npm package is available at <a href="https://npmjs.com/package/@ga1az/react-pixel-motion" class="font-bold underline">npmjs.com/package/@ga1az/react-pixel-motion</a>.
-</div>
+[Open the interactive playground](https://react-pixel-motion.ga1az.com/)
+
+![React Pixel Motion playground](./playground.png "Interactive playground")
 
 ## Features
 
@@ -58,8 +58,3 @@ function App() {
 }
 ```
 
-[Interactive Playground 🎮](https://react-pixel-motion.ga1az.com/)
-
-<div class="mt-2 border rounded-lg overflow-hidden">
-  <iframe src="https://react-pixel-motion.ga1az.com/" class="w-full h-[800px] rounded-lg" />
-</div>

@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import ArticleMedia from "../../components/ArticleMedia.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { ui } from "../../i18n/ui";
 import { findTranslation, formatDate } from "../../i18n/utils";
@@ -60,24 +61,27 @@ const alternate = translation
       )
     }
   </div>
-  <article class="prose prose-invert max-w-none text-[#EEEEE2] mb-10">
+  <article
+    class="prose max-w-none mb-10 prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-2xl prose-h1:mt-10 prose-h1:mb-3 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-3 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-2 prose-a:font-medium prose-a:underline-offset-4 prose-blockquote:not-italic prose-blockquote:font-normal prose-code:before:content-none prose-code:after:content-none"
+  >
     <Content />
   </article>
+  <ArticleMedia />
+  <div class="giscus mb-10"></div>
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo="ga1az/portafolio"
+    data-repo-id="R_kgDOLZgY8w"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOLZgY884CkkYG"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark"
+    data-lang={lang}
+    crossorigin="anonymous"
+    async></script>
 </BaseLayout>
-
-<script
-  is:inline
-  src="https://giscus.app/client.js"
-  data-repo="ga1az/portafolio"
-  data-repo-id="R_kgDOLZgY8w"
-  data-category="Announcements"
-  data-category-id="DIC_kwDOLZgY884CkkYG"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="bottom"
-  data-theme="preferred_color_scheme"
-  data-lang={lang}
-  crossorigin="anonymous"
-  async></script>

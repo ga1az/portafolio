@@ -7,14 +7,15 @@ icon: "grafana"
 description: "Turn your Grafana dashboards into images and share them anywhere."
 ---
 
-![grafana](../grafana-convierte-tus-dashboards-en-imagenes/grafana.png)
+![Grafana](../grafana-convierte-tus-dashboards-en-imagenes/grafana.png "Grafana")
 
 We are going to see how we can convert our [Grafana](https://grafana.com/) dashboards into images, so we can share them anywhere, for example in slack, discord, microsoft teams, etc.
 With this we will be able to preview our dashboards without the need to enter Grafana and create automations to send them to our teams.
 
 ## Prerequisites
 
-> Note: We need a running instance of Grafana, version 8.3.11 or higher. Grafana >=8.3.11
+> [!NOTE]
+> We need a running instance of Grafana, version 8.3.11 or higher. Grafana >=8.3.11
 
 We need to have the plugin [Grafana Image Renderer](https://grafana.com/grafana/plugins/grafana-image-renderer/) installed in our Grafana, to be able to render our dashboards in images, and to generate the necessary endpoints to be able to make the requests.
 
@@ -49,7 +50,8 @@ To start the services, run:
 docker-compose up
 ```
 
-> Note: Make sure you have your [API Key](https://grafana.com/docs/grafana/latest/administration/api-keys/) from Grafana, in order to be able to make API requests.
+> [!NOTE]
+> Make sure you have your [API Key](https://grafana.com/docs/grafana/latest/administration/api-keys/) from Grafana, in order to be able to make API requests.
 
 ## Usage
 
@@ -151,11 +153,12 @@ Make sure you change the values of these mandatory variables:
 - `PANEL_ID`: with the ID of the panel you want to render. (We got it in the second step)
 - `ORG_ID`: with the ID of your organisation.
 
-> Note: You can change the `width` and `height` to change the size of the image. You can also change the `tz` to change the timezone and the `scale` to change the image quality.
+> [!TIP]
+> You can change the `width` and `height` to change the size of the image. You can also change the `tz` to change the timezone and the `scale` to change the image quality.
 
 This will generate an `imagen_dashboard.png` file with your dashboard image.
 
-![grafana](../grafana-convierte-tus-dashboards-en-imagenes/panel.png)
+![Grafana panel](../grafana-convierte-tus-dashboards-en-imagenes/panel.png "Rendered panel")
 
 ## Extras
 

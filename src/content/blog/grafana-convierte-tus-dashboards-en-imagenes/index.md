@@ -7,14 +7,15 @@ icon: "grafana"
 description: "Convierte tus dashboards de Grafana en imágenes y compártelas en cualquier lugar."
 ---
 
-![grafana](./grafana.png)
+![Grafana](./grafana.png "Grafana")
 
 Vamos a ver cómo podemos convertir nuestros dashboards de [Grafana](https://grafana.com/) en imágenes, para poder compartirlos en cualquier lugar, como por ejemplo en slack, discord, microsoft teams, etc.
 Con esto podremos tener una vista previa de nuestros dashboards sin necesidad de entrar a Grafana y crear automatizaciones para enviarlas a nuestros equipos.
 
 ## Prerrequisitos
 
-> Nota: Necesitamos una instancia de Grafana corriendo, con la versión 8.3.11 o superior. Grafana >=8.3.11
+> [!NOTE]
+> Necesitamos una instancia de Grafana corriendo, con la versión 8.3.11 o superior. Grafana >=8.3.11
 
 Necesitamos tener instalado el plugin [Grafana Image Renderer](https://grafana.com/grafana/plugins/grafana-image-renderer/) en nuestro Grafana, para poder renderizar nuestros dashboards en imágenes, y para que nos genere los endpoints necesarios para poder hacer las peticiones.
 
@@ -49,7 +50,8 @@ Para iniciar los servicios, ejecuta:
 docker-compose up
 ```
 
-> Nota: Asegúrate de que tienes tu [API Key](https://grafana.com/docs/grafana/latest/administration/api-keys/) de Grafana, para poder hacer las peticiones a la API.
+> [!NOTE]
+> Asegúrate de que tienes tu [API Key](https://grafana.com/docs/grafana/latest/administration/api-keys/) de Grafana, para poder hacer las peticiones a la API.
 
 ## Uso
 
@@ -151,11 +153,12 @@ Asegúrate de cambiar los valores de estas variables obligatorias:
 - `ID_DEL_PANEL`: con el ID del panel que quieres renderizar. (Lo obtuvimos en el segundo paso)
 - `ORG_ID`: con el ID de tu organización.
 
-> Nota: Puedes cambiar el `width` y `height` para cambiar el tamaño de la imagen. También puedes cambiar el `tz` para cambiar la zona horaria y el `scale` para cambiar la calidad de la imagen.
+> [!TIP]
+> Puedes cambiar el `width` y `height` para cambiar el tamaño de la imagen. También puedes cambiar el `tz` para cambiar la zona horaria y el `scale` para cambiar la calidad de la imagen.
 
 Esto generará un archivo `imagen_dashboard.png` con la imagen de tu dashboard.
 
-![grafana](./panel.png)
+![Panel de Grafana](./panel.png "Panel renderizado")
 
 ## Extras
 

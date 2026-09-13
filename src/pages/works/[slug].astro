@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import ArticleMedia from "../../components/ArticleMedia.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate } from "../../i18n/utils";
 
@@ -38,8 +39,24 @@ const lang = entry.data.language;
         {entry.data.tags.join(" - ")}
       </span>
     </div>
+    {
+      entry.data.href && (
+        <a
+          class="flex items-center space-x-2 w-fit hover:text-[#EEEEE2] transition-all"
+          href={entry.data.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="ri-external-link-line" />
+          <span>Live</span>
+        </a>
+      )
+    }
   </div>
-  <article class="prose prose-invert max-w-none text-[#EEEEE2] mb-10">
+  <article
+    class="prose max-w-none mb-10 prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-2xl prose-h1:mt-10 prose-h1:mb-3 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-3 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-2 prose-a:font-medium prose-a:underline-offset-4 prose-blockquote:not-italic prose-blockquote:font-normal prose-code:before:content-none prose-code:after:content-none"
+  >
     <Content />
   </article>
+  <ArticleMedia />
 </BaseLayout>

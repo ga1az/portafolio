@@ -30,88 +30,6 @@ description: "The terminals I tried before settling on Superset to organize mult
   </a>
 </div>
 
-<style>
-  .terminal-deck {
-    display: flex;
-    align-items: stretch;
-    margin: 24px 0 32px;
-    padding: 8px 0;
-    overflow-x: auto;
-  }
-
-  .terminal-deck-card {
-    min-width: 138px;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 18px;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    transition: transform 220ms ease, margin 220ms ease, box-shadow 220ms ease,
-      border-color 220ms ease;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(10px);
-    position: relative;
-    z-index: 1;
-    margin-left: -26px;
-  }
-
-  .terminal-deck-card:first-child {
-    margin-left: 0;
-  }
-
-  .terminal-deck:hover .terminal-deck-card {
-    margin-left: 10px;
-  }
-
-  .terminal-deck:hover .terminal-deck-card:first-child {
-    margin-left: 0;
-  }
-
-  .terminal-deck-card:hover {
-    transform: translateY(-6px);
-    z-index: 5;
-    border-color: rgba(255, 255, 255, 0.24);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-  }
-
-  .terminal-deck-card img {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    object-fit: contain;
-  }
-
-  .terminal-deck-card strong {
-    color: #eeeee2;
-    font-size: 0.95rem;
-  }
-
-  .terminal-deck-card--light img {
-    background: #fff;
-    padding: 4px;
-  }
-
-  @media (max-width: 720px) {
-    .terminal-deck {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      overflow: visible;
-    }
-
-    .terminal-deck-card,
-    .terminal-deck-card:first-child,
-    .terminal-deck:hover .terminal-deck-card,
-    .terminal-deck:hover .terminal-deck-card:first-child {
-      margin-left: 0;
-    }
-  }
-</style>
 
 Once you start running multiple AI agents across multiple projects, your terminal stops being just a terminal.
 
@@ -121,7 +39,7 @@ This is the path I followed: [Ghostty](https://ghostty.org/), [Warp](https://www
 
 ## Ghostty
 
-![Ghostty](https://ghostty.org/social-share-card.jpg)
+![Ghostty](../las-terminales-que-probe-para-orquestar-agentes-de-ai/ghostty.jpg "Ghostty")
 
 I started with Ghostty because it felt fast, native, and clean.
 
@@ -131,7 +49,7 @@ So this was not about Ghostty being bad. It was more about me wanting the next l
 
 ## Warp
 
-![Warp](https://framerusercontent.com/images/vvDFwPAa66yI9T0kGNhd43kHcM.png)
+![Warp](../las-terminales-que-probe-para-orquestar-agentes-de-ai/warp.png "Warp")
 
 Warp felt like the obvious next step.
 
@@ -141,7 +59,7 @@ But after using it for a while, I realized I was mostly treating it like a regul
 
 ## cmux
 
-![cmux](https://cmux.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flanding-image.70ebd164.png&w=3840&q=75&dpl=dpl_4d5DQq9vW8Cmy1v2ik3ED7jjkeBD)
+![cmux](../las-terminales-que-probe-para-orquestar-agentes-de-ai/cmux.png "cmux")
 
 Then I tried cmux, and this one immediately caught my attention.
 
@@ -153,7 +71,7 @@ I liked the direction a lot. I just did not love the execution enough to stay th
 
 ## Conductor
 
-![Conductor](https://www.conductor.build/_next/image?url=%2Fdark-screenshot-no-bg.png&w=3840&q=75)
+![Conductor](../las-terminales-que-probe-para-orquestar-agentes-de-ai/conductor.webp "Conductor")
 
 After that I moved to Conductor.
 
@@ -165,7 +83,7 @@ So even though I think Conductor is very well built, it was not the place where 
 
 ## Superset
 
-![Superset](https://superset.sh/og-image.png)
+![Superset](../las-terminales-que-probe-para-orquestar-agentes-de-ai/superset.png "Superset")
 
 Superset was the first tool that really made the whole workflow click for me.
 

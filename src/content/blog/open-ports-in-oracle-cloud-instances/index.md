@@ -12,27 +12,27 @@ Without a doubt, one of the most challenging tasks when setting up an Oracle Clo
 > [!NOTE]
 > If you are using UFW (Uncomplicated Firewall), you must disable it. It is not recommended to use it in conjunction with Oracle Cloud, as it can cause serious problems.
 
-# Opening Ports on Oracle Cloud Instances (Web Console)
+## Opening Ports on Oracle Cloud Instances (Web Console)
 
 The first step is to go to [Instances](https://cloud.oracle.com/compute/instances) and select the instance you want to configure.
 
 Navigate to the **Instance details** section and click on the **Virtual cloud network** link.
 
-![vcn](../abrir-puertos-instancias-oracle-cloud/vcn.png)
+![VCN list in the console](../abrir-puertos-instancias-oracle-cloud/vcn.png "Virtual cloud network")
 
 Once inside the VCN, go to the **Security Lists** tab and select your security list. In most cases, this will be the default security list for the VCN.
 
-![vcn-details](../abrir-puertos-instancias-oracle-cloud/vcn-detail.png)
+![VCN details](../abrir-puertos-instancias-oracle-cloud/vcn-detail.png "Security list")
 
 Now, click on **Add Ingress Rules** to add the security rule for the port you wish to open. In this example, we will open port 8080.
 
-![add](../abrir-puertos-instancias-oracle-cloud/add.png)
+![Add Ingress Rules](../abrir-puertos-instancias-oracle-cloud/add.png "Add Ingress Rules")
 
-![add-detail](../abrir-puertos-instancias-oracle-cloud/add-detail.png)
+![Ingress rule details](../abrir-puertos-instancias-oracle-cloud/add-detail.png "Rule for port 8080")
 
 Save the changes, and now you can connect to the instance via SSH to configure its internal firewall.
 
-# Modifying the Instance Firewall
+## Modifying the Instance Firewall
 
 Once you are connected to the instance via SSH, you need to modify its firewall.
 
