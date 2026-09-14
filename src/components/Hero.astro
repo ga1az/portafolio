@@ -25,16 +25,15 @@ const posts = (
 const latest = posts.slice(0, 3);
 
 /*
-  Three links carry a hover card: the Striker chip in the status line (opens
-  below, there is no room above), and "blog" / "portfolio" in the intro
-  (open above). A card is a sibling of its link, not a child, so the links
-  inside it stay valid HTML. Show/hide lives in global.css
-  (.hover-trigger / .hover-card) and the script at the bottom animates it
-  when it can.
+  Three links carry a hover card, all opening above the word: "blog" /
+  "portfolio" in the second paragraph and the Striker chip in the closing
+  line. A card is a sibling of its link, not a child, so the links inside it
+  stay valid HTML. Show/hide lives in global.css (.hover-trigger /
+  .hover-card) and the script at the bottom animates it when it can.
 
-  No positioning script: "blog" lands early in the sentence in both languages
-  and "portfolio" late, so the first card grows to the right and the second
-  to the left, and both stay inside the column.
+  No positioning script: "blog" and "Striker" land early in their lines in
+  both languages and "portfolio" late, so the first two cards grow to the
+  right and the third to the left, and all stay inside the column.
 */
 const cardSurface =
   "flex flex-col gap-2.5 rounded-xl border border-[#2E2E2E] bg-[#1A1A1A] p-3 " +
@@ -48,67 +47,6 @@ const cardPointer =
   <div class="font-bold text-3xl mb-10">
     <p>{t("home.hello")}</p>
     <span>{t("home.name")}</span>
-
-    {/* Status line: where I am, what time it is there, what I am building. */}
-    <p
-      class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-normal tracking-wide text-[#EEEEE2]/50"
-    >
-      <span class="inline-flex items-center gap-1">
-        <i class="ri-map-pin-line" aria-hidden="true"></i>
-        {t("home.status.location")}
-      </span>
-      <span aria-hidden="true">·</span>
-      <span class="inline-flex items-center gap-1">
-        <i class="ri-time-line" aria-hidden="true"></i>
-        {/* Filled by the script in the site's own time zone; the label is the no-JS fallback. */}
-        <time data-clock data-tz="America/Santiago">GMT-3</time>
-      </span>
-      <span aria-hidden="true">·</span>
-      <span class="hover-trigger relative inline-block" data-hover>
-        <a
-          href={BUILDING.href[lang]}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 text-[#EEEEE2]/80 hover:text-[#EEEEE2] transition-colors"
-        >
-          <span class="relative flex size-2" aria-hidden="true">
-            <span class="absolute inline-flex size-full rounded-full bg-green-400 opacity-60 motion-safe:animate-ping"></span>
-            <span class="relative inline-flex size-2 rounded-full bg-green-400"></span>
-          </span>
-          {t("home.status.building")}
-          <Tile icon={BUILDING.icon} label={BUILDING.name} size="2xs" />
-          {BUILDING.name}
-        </a>
-        <span
-          class="hover-card hover-card--below left-0 w-[340px] max-w-[calc(100vw-2rem)] origin-top-left"
-          role="tooltip"
-          data-card
-        >
-          <span class:list={[cardSurface, "gap-2 p-2"]}>
-            <Image
-              src={strikerOg}
-              alt=""
-              width={648}
-              height={340}
-              class="w-full rounded-lg border border-[#2E2E2E]"
-              loading="lazy"
-              decoding="async"
-              data-row
-            />
-            <span class="flex flex-col gap-0.5 px-1 pb-1" data-row>
-              <span class="text-[#EEEEE2]">{t("home.preview.building")}</span>
-              <span class="text-[13px] text-[#EEEEE2]/50">
-                {BUILDING.href[lang].replace("https://", "")}
-                <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
-              </span>
-            </span>
-          </span>
-          <span
-            class="absolute left-6 top-[7px] size-3 rotate-45 border-l border-t border-[#2E2E2E] bg-[#1A1A1A]"
-            aria-hidden="true"></span>
-        </span>
-      </span>
-    </p>
   </div>
   <h1 class="text-[#EEEEE2]/70 tracking-wide">{t("home.bio")}</h1>
   <h1 class="text-[#EEEEE2]/70 tracking-wide">
@@ -188,6 +126,46 @@ const cardPointer =
       </span>
     </span>{t("home.freeTime.after")}
   </h1>
+
+  {/* Closing line: what I am building right now. */}
+  <p class="pt-6 text-[#EEEEE2]/70 tracking-wide">
+    {t("home.building")}<span class="hover-trigger relative inline-block" data-hover>
+      <a
+        href={BUILDING.href[lang]}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-[#EEEEE2] hover:text-[#EEEEE2]/70 transition-colors"
+      >
+        <Tile icon={BUILDING.icon} label={BUILDING.name} size="sm" class="inline-flex align-middle mr-2" />{BUILDING.name}
+      </a>
+      <span
+        class="hover-card left-0 w-[340px] max-w-[calc(100vw-2rem)] origin-bottom-left"
+        role="tooltip"
+        data-card
+      >
+        <span class:list={[cardSurface, "gap-2 p-2"]}>
+          <Image
+            src={strikerOg}
+            alt=""
+            width={648}
+            height={340}
+            class="w-full rounded-lg border border-[#2E2E2E]"
+            loading="lazy"
+            decoding="async"
+            data-row
+          />
+          <span class="flex flex-col gap-0.5 px-1 pb-1" data-row>
+            <span class="text-[#EEEEE2]">{t("home.preview.building")}</span>
+            <span class="text-[13px] text-[#EEEEE2]/50">
+              {BUILDING.href[lang].replace("https://", "")}
+              <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+            </span>
+          </span>
+        </span>
+        <span class:list={[cardPointer, "left-6"]} aria-hidden="true"></span>
+      </span>
+    </span>.
+  </p>
 </div>
 
 <script>
@@ -203,12 +181,8 @@ const cardPointer =
   const CAN_HOVER = window.matchMedia("(hover: hover)");
 
   // Where a closed card rests, so the entrance always starts from the same
-  // place: a few pixels toward the word it belongs to.
-  const closedState = (card: HTMLElement) => ({
-    opacity: 0,
-    y: card.classList.contains("hover-card--below") ? -12 : 12,
-    scale: 0.96,
-  });
+  // place: a few pixels down, toward the word it belongs to.
+  const CLOSED = { opacity: 0, y: 12, scale: 0.96 };
 
   function bind(trigger: HTMLElement) {
     if (trigger.dataset.bound) return;
@@ -221,7 +195,6 @@ const cardPointer =
     const tiles = Array.from(card.querySelectorAll<HTMLElement>("[data-tile]"));
     const drift = createAnimatable(card, { x: 500, ease: "out(3)" });
 
-    const CLOSED = closedState(card);
     utils.set(card, CLOSED);
     let open = false;
 
@@ -285,25 +258,7 @@ const cardPointer =
     });
   }
 
-  // Local time in the site's own time zone, refreshed on the minute.
-  function startClock(el: HTMLElement) {
-    if (el.dataset.running) return;
-    el.dataset.running = "";
-    const format = new Intl.DateTimeFormat("en-GB", {
-      timeZone: el.dataset.tz,
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const tick = () => {
-      if (!el.isConnected) return;
-      el.textContent = format.format(new Date());
-      setTimeout(tick, 60_000 - (Date.now() % 60_000) + 50);
-    };
-    tick();
-  }
-
   function init() {
-    document.querySelectorAll<HTMLElement>("[data-clock]").forEach(startClock);
     if (REDUCED.matches || !CAN_HOVER.matches) return;
     document.documentElement.dataset.hoverAnim = "on";
     document.querySelectorAll<HTMLElement>("[data-hover]").forEach(bind);

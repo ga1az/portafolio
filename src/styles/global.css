@@ -21,24 +21,12 @@
   opacity: 0;
 }
 
-/* Same card, opening downward (used where there is no room above). */
-.hover-card--below {
-  bottom: auto;
-  top: 100%;
-  padding-bottom: 0;
-  padding-top: 0.75rem;
-}
-
 html:not([data-hover-anim]) .hover-card {
   transform: translateY(4px);
   transition:
     opacity 200ms,
     transform 200ms,
     visibility 200ms;
-}
-
-html:not([data-hover-anim]) .hover-card--below {
-  transform: translateY(-4px);
 }
 
 /* Only pointers that can hover; on touch the tap just follows the link. */

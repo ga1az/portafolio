@@ -15,9 +15,8 @@ export const DEFAULT_LANG: Lang = "en";
 const en = {
   "site.description": "Sergio Galaz's personal website",
 
-  // How this language names itself: the switch on the *other* language's
-  // pages shows it ("español" on an English page, "english" on a Spanish one).
-  "lang.name": "english",
+  // The switch on the *other* language's pages shows the two-letter code and
+  // carries this as its accessible name.
   "lang.readIn": "Read in English",
 
   "nav.home": "Home",
@@ -36,9 +35,8 @@ const en = {
   "home.freeTime.works": "portfolio",
   "home.freeTime.after": " to see my recent work.",
 
-  // Status line under the name: "<pin> Santiago, Chile · <clock> · ● building <Striker>".
-  "home.status.location": "Santiago, Chile",
-  "home.status.building": "building",
+  // Closing line of the intro: "Right now I'm building <Striker>."
+  "home.building": "Right now I'm building ",
   // Tagline on the Striker hover card, in that site's own words.
   "home.preview.building": "AI sales platform for commercial teams",
 
@@ -64,7 +62,6 @@ export type UIKey = keyof typeof en;
 const es: Record<UIKey, string> = {
   "site.description": "Sitio personal de Sergio Galaz",
 
-  "lang.name": "español",
   "lang.readIn": "Leer en español",
 
   "nav.home": "Inicio",
@@ -82,8 +79,7 @@ const es: Record<UIKey, string> = {
   "home.freeTime.works": "portafolio",
   "home.freeTime.after": " para ver mi trabajo reciente.",
 
-  "home.status.location": "Santiago, Chile",
-  "home.status.building": "construyendo",
+  "home.building": "Ahora mismo construyo ",
   "home.preview.building": "Plataforma de ventas con agentes de IA",
 
   "home.preview.posts": "Últimos posts",

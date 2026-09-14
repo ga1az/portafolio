@@ -34,15 +34,16 @@ const currentPath = Astro.url.pathname;
     })
   }
 
-  {/* The other edition of this page. Sits apart from the sections on purpose. */}
+  {/* The other edition of this page, as its code. Sits apart from the sections on purpose. */}
   <a
-    class="ml-auto cursor-pointer text-[#EEEEE2]/60 hover:text-[#EEEEE2] transition-all lowercase"
+    class="ml-auto self-center cursor-pointer text-sm font-medium tracking-[0.08em] text-[#EEEEE2]/60 hover:text-[#EEEEE2] transition-all uppercase"
     href={switchTarget.href}
     hreflang={switchTarget.lang}
     lang={switchTarget.lang}
     title={ui[switchTarget.lang]["lang.readIn"]}
+    aria-label={ui[switchTarget.lang]["lang.readIn"]}
     data-set-lang={switchTarget.lang}
   >
-    {ui[switchTarget.lang]["lang.name"]}
+    {switchTarget.lang}
   </a>
 </header>
