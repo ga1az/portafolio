@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # vercel files
 .vercel
+
+# editor / agent tooling (local only)
+.claude/
+.atl/
