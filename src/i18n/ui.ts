@@ -52,6 +52,9 @@ const en = {
   "blog.otherArchive": "spanish reads",
   "works.title": "Works",
 
+  // Accessible name of the social-links dock in the footer.
+  "footer.social": "Social links",
+
   "notFound.title": "Page not found",
   "notFound.body": "The link may be broken, or the page may have moved.",
   "notFound.home": "Back home",
@@ -90,6 +93,8 @@ const es: Record<UIKey, string> = {
 
   "blog.otherArchive": "english reads",
   "works.title": "Proyectos",
+
+  "footer.social": "Redes",
 
   "notFound.title": "Página no encontrada",
   "notFound.body": "El link puede estar roto o la página se movió.",

@@ -1,11 +1,118 @@
-<footer class="flex justify-center space-x-2 text-xl">
-  <a href="https://twitter.com/Ga1az" target="_blank">
-    <i class="ri-twitter-fill hover:text-white/60 transition-all"></i>
-  </a>
-  <a href="https://github.com/ga1az" target="_blank">
-    <i class="ri-github-fill hover:text-white/60 transition-all"></i>
-  </a>
-  <a href="https://www.linkedin.com/in/sergio-galaz/" target="_blank">
-    <i class="ri-linkedin-box-fill hover:text-white/60 transition-all"></i>
-  </a>
+---
+import type { Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+
+/**
+ * The social links, as a small macOS-style dock. At rest it is the plain row
+ * of three icons it always was; with a pointer over it a faint tray fades in,
+ * the icon under the pointer grows, its neighbours follow, and a label shows
+ * above. Show/hide and the no-script fallback live in global.css (.dock); the
+ * script at the bottom animates it when it can.
+ */
+export type Props = { lang: Lang };
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const LINKS = [
+  { label: "twitter", icon: "ri-twitter-fill", href: "https://twitter.com/Ga1az" },
+  { label: "github", icon: "ri-github-fill", href: "https://github.com/ga1az" },
+  {
+    label: "linkedin",
+    icon: "ri-linkedin-box-fill",
+    href: "https://www.linkedin.com/in/sergio-galaz/",
+  },
+];
+---
+
+<footer class="flex justify-center">
+  <nav class="dock" aria-label={t("footer.social")} data-dock>
+    {
+      LINKS.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={link.label}
+          class="dock-item"
+          data-dock-item
+        >
+          <i class:list={["dock-glyph", link.icon]} aria-hidden="true" data-glyph />
+          <span class="dock-label" aria-hidden="true">
+            {link.label}
+          </span>
+        </a>
+      ))
+    }
+  </nav>
 </footer>
+
+<script>
+  import { createAnimatable, spring } from "animejs";
+
+  /*
+    Progressive enhancement over the CSS in global.css. With a real pointer
+    and no reduced-motion preference this takes over: every icon springs
+    toward a size set by its distance to the pointer (the one under it
+    largest, the neighbours less) and slides a little away from it, the way
+    the macOS Dock does. Everything springs back when the pointer leaves.
+  */
+  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const CAN_HOVER = window.matchMedia("(hover: hover)");
+
+  const MAX = 1.6; // scale of the icon right under the pointer (20px -> 32px)
+  const REACH = 56; // px from an icon's centre where it starts to react (two slots)
+  const NUDGE = 5; // px the neighbours slide away from the pointer
+  // Overdamped: settles without bouncing.
+  const SPRING = { mass: 0.1, stiffness: 150, damping: 12 };
+
+  function bind(dock: HTMLElement) {
+    if (dock.dataset.bound) return;
+    dock.dataset.bound = "";
+
+    const items = Array.from(dock.querySelectorAll<HTMLElement>("[data-dock-item]"));
+    const glyphs = items.map((item) => {
+      const glyph = item.querySelector<HTMLElement>("[data-glyph]") ?? item;
+      return createAnimatable(glyph, {
+        scale: { ease: spring(SPRING) },
+        x: { ease: spring(SPRING) },
+      });
+    });
+
+    // Distances come from layout positions, which the transforms never move.
+    const update = (pointerX: number | null) => {
+      const left = dock.getBoundingClientRect().left;
+      items.forEach((item, i) => {
+        let scale = 1;
+        let x = 0;
+        if (pointerX !== null) {
+          const d = pointerX - (left + item.offsetLeft + item.offsetWidth / 2);
+          if (Math.abs(d) < REACH) {
+            // Raised cosine: a soft peak under the pointer, zero at the reach.
+            const weight = 0.5 + 0.5 * Math.cos((Math.PI * d) / REACH);
+            scale = 1 + (MAX - 1) * weight;
+            x = (-d / REACH) * NUDGE * scale;
+          } else {
+            x = -Math.sign(d) * NUDGE;
+          }
+        }
+        glyphs[i].scale(scale);
+        glyphs[i].x(x);
+      });
+    };
+
+    dock.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "mouse") update(event.clientX);
+    });
+    dock.addEventListener("pointerleave", () => update(null));
+  }
+
+  function init() {
+    if (REDUCED.matches || !CAN_HOVER.matches) return;
+    document.documentElement.dataset.dockAnim = "on";
+    document.querySelectorAll<HTMLElement>("[data-dock]").forEach(bind);
+  }
+
+  // ClientRouter swaps the document without a reload: bind per page.
+  document.addEventListener("astro:page-load", init);
+</script>
